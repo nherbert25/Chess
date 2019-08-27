@@ -6,7 +6,6 @@ from pieces import knight
 from pieces import rook
 from pieces import queen
 from pieces import pawn
-#testing!
 
 class Board:
 
