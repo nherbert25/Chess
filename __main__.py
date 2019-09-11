@@ -111,6 +111,8 @@ while not crashed:
 			quit()
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
+
+
 			#find the square that's clicked
 			mouse_x, mouse_y = pygame.mouse.get_pos()
 			square = mv.which_square(mouse_x, mouse_y, display_width, display_height)
@@ -138,10 +140,17 @@ while not crashed:
 		
 		#print(event)
 
+
+
+
+
+
+
+
 	#draws the pieces. img[0] is specific surface, img[1] is position
 	for img in allPieces:
-		#<Surface(100x100x32 SW)>
-		#[200.0, 0]
+		#img[0] = <Surface(100x100x32 SW)>
+		#img[1] = [200.0, 0]
 		gameDisplay.blit(img[0], img[1])
 
 	
