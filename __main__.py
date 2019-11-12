@@ -42,8 +42,6 @@ def drawChessPieces():
 	width = display_width/8
 	height = display_height/8
 	square_color = {'white': (143,155,175), 'black': ((66,0,0))}
-	#black = (66,0,0)
-	#white = (143,155,175)
 	number = 0
 
 	for _ in range(8):
@@ -112,48 +110,53 @@ while not crashed:
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
 
-
 			#find the square that's clicked
 			mouse_x, mouse_y = pygame.mouse.get_pos()
 			square = mv.which_square(mouse_x, mouse_y, display_width, display_height)
 
-			img = pygame.image.load("./ChessArt/red_square.png")
-			img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
+			if currently_selected_square == square:
+				for _ in allPieces:
+					pass
+				#remove red square
+				currently_selected_square = None
+			
+			elif currently_selected_square == None:
+				img = pygame.image.load("./ChessArt/red_square.png")
+				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
+				allPieces.append([img, [chessBoard.gameTiles[square].xpos, chessBoard.gameTiles[square].ypos]])
 
-			allPieces.append([img, [chessBoard.gameTiles[square].xpos, chessBoard.gameTiles[square].ypos]])
-			
-			#select_square()  - if you can, check if correct color check if in check
-			
+			else:
+				pass
+				#check if legal square
+				#if legal, move piece,
+				#if own square, select square
+				#else do nothing
+
+
+			#select_square()  - if you can, check if correct color check if in check			
 			#blit square
-
 			#if currently_selected_square = None:
 			#currently_selected_square = selected square
 			#draw red square
 			#if currently selected is same as current square, selected sqare = none
-
 			#else: evaluate all legal moves, draw circles
-			
-
 			#pygame.draw.square(parameters)
 			#pygame.display.update()
 			#screen.blit(param) updates only that part of the screen
-		
 		#print(event)
-
-
-
-
-
-
-
-
 	#draws the pieces. img[0] is specific surface, img[1] is position
+	
+	#gameDisplay.fill([255,255,255])
 	for img in allPieces:
 		#img[0] = <Surface(100x100x32 SW)>
 		#img[1] = [200.0, 0]
 		gameDisplay.blit(img[0], img[1])
 
-	
+#		print(img)
+#		print(img[0])
+#		print(img[1])
+#		print('next')
+
 	pygame.display.update()
 	clock.tick(60)
 	
