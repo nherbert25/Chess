@@ -1,4 +1,4 @@
-#takes in x,y of where you click, returns the square which you clicked
+#takes in x,y of where you click, returns the square which you clicked as an integer 0-63
 def which_square(mouse_x, mouse_y, display_width, display_height):
     square = 0
     if mouse_x < display_width/8:

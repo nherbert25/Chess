@@ -1,5 +1,5 @@
-import pygame
 import pdb
+import pygame
 from board.chessBoard import Board
 import board.move as mv
 
@@ -119,8 +119,8 @@ while not crashed:
 					pass
 				#remove red square
 				currently_selected_square = None
-			
-			elif currently_selected_square == None:
+
+			elif currently_selected_square is None:
 				img = pygame.image.load("./ChessArt/red_square.png")
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 				allPieces.append([img, [chessBoard.gameTiles[square].xpos, chessBoard.gameTiles[square].ypos]])
@@ -145,7 +145,7 @@ while not crashed:
 			#screen.blit(param) updates only that part of the screen
 		#print(event)
 	#draws the pieces. img[0] is specific surface, img[1] is position
-	
+
 	#gameDisplay.fill([255,255,255])
 	for img in allPieces:
 		#img[0] = <Surface(100x100x32 SW)>
@@ -159,6 +159,6 @@ while not crashed:
 
 	pygame.display.update()
 	clock.tick(60)
-	
+
 pygame.quit()
 quit()
