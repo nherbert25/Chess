@@ -98,7 +98,7 @@ def drawChessPieces():
 ########################################################################
 ########################################################################
 drawChessPieces()
-
+#test
 while not crashed:
 
 	#evaluates what happens during each event (x # of frames), (where mouse is, if event is quit, etc.)
