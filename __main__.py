@@ -35,6 +35,7 @@ def squares(x, y, w, h, color):
 	pygame.draw.rect(gameDisplay, color, [x,y,w,h])
 	allTiles.append([color, [x,y,w,h]])
 
+#draws the board without pieces
 def drawChessPieces():
 	xpos = 0
 	ypos = 0
@@ -109,26 +110,37 @@ while not crashed:
 			quit()
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
-
 			#find the square that's clicked
 			mouse_x, mouse_y = pygame.mouse.get_pos()
-			square = mv.which_square(mouse_x, mouse_y, display_width, display_height)
+			#integer from 0-63
+			clicked_square = mv.which_square(mouse_x, mouse_y, display_width, display_height)
 
-			if currently_selected_square == square:
+			#if already highlighted, unselect square
+			if currently_selected_square == clicked_square:
 				for _ in allPieces:
-					pass
-				#remove red square
+					if len(_) == 2:
+						allPieces.remove(_)
+				#remove red square and dots
 				currently_selected_square = None
 
+			#if no piece is selected, select the square and display moves
 			elif currently_selected_square is None:
 				img = pygame.image.load("./ChessArt/red_square.png")
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
-				allPieces.append([img, [chessBoard.gameTiles[square].xpos, chessBoard.gameTiles[square].ypos]])
+				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
+					#get square # and piece from square
+				
+					#find legal moves
+					#add red dots to allPieces
+				currently_selected_square = clicked_square
 
 			else:
 				pass
 				#check if legal square
 				#if legal, move piece,
+					#get square # and piece from square
+					#find legal moves
+					#add red dots to allPieces
 				#if own square, select square
 				#else do nothing
 
@@ -147,6 +159,11 @@ while not crashed:
 	#draws the pieces. img[0] is specific surface, img[1] is position
 
 	#gameDisplay.fill([255,255,255])
+
+
+
+	#might need to remove drawChessPieces, it's making it very slow, but necessary to repaint over pieces at the moment...
+	drawChessPieces()
 	for img in allPieces:
 		#img[0] = <Surface(100x100x32 SW)>
 		#img[1] = [200.0, 0]
