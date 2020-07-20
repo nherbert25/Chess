@@ -125,6 +125,7 @@ while not crashed:
 
 			#if no piece is selected, select the square and display moves
 			elif currently_selected_square is None:
+				#AND THIS IS A LEGAL PIECE TO MOVE!!!!
 				img = pygame.image.load("./ChessArt/red_square.png")
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
