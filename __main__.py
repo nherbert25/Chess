@@ -11,9 +11,13 @@ display_width = 800
 display_height = 800
 currently_selected_square = None
 
+'''
+#the class which holds all the pieces
+gameTiles = {}
+is a 64 int dictionary which holds the instance of the class Tile
+'''
 chessBoard = Board()
 chessBoard.createBoard()
-#chessBoard.printBoard()
 
 #creates a canvas called gameDisplay
 gameDisplay = pygame.display.set_mode((display_width,display_height))
@@ -27,7 +31,10 @@ crashed = False
 
 ########################################################################
 ########################################################################
+
+#nothing list of squares, w, h, etc.
 allTiles = []
+#64 int list with piece:   [img, [xpos, ypos], chessBoard.gameTiles[number].pieceOnTile]
 allPieces = []
 
 
@@ -110,7 +117,6 @@ while not crashed:
 			quit()
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
-			#find the square that's clicked
 			mouse_x, mouse_y = pygame.mouse.get_pos()
 			#integer from 0-63
 			clicked_square = mv.which_square(mouse_x, mouse_y, display_width, display_height)
@@ -118,7 +124,10 @@ while not crashed:
 			#if already highlighted, unselect square
 			if currently_selected_square == clicked_square:
 				for _ in allPieces:
+					#print(_)
 					if len(_) == 2:
+						print('THIS BOOYYYYY')
+						print(_)
 						allPieces.remove(_)
 				#remove red square and dots
 				currently_selected_square = None
@@ -130,6 +139,23 @@ while not crashed:
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
 					#get square # and piece from square
+				#movement
+				print(chessBoard.gameTiles[clicked_square].pieceOnTile)
+				#grab legal moves from tile
+				print(chessBoard.gameTiles[clicked_square].pieceOnTile.movement())
+
+				img = pygame.image.load("./ChessArt/red_dot.png")
+				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
+
+				legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement()
+				
+				if legal_moves is not None:
+					for legal_move in legal_moves:
+						print([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
+						allPieces.append([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
+
+
+				#add dots
 				
 					#find legal moves
 					#add red dots to allPieces
@@ -164,7 +190,7 @@ while not crashed:
 
 
 	#might need to remove drawChessPieces, it's making it very slow, but necessary to repaint over pieces at the moment...
-	drawChessPieces()
+	#drawChessPieces()
 	for img in allPieces:
 		#img[0] = <Surface(100x100x32 SW)>
 		#img[1] = [200.0, 0]

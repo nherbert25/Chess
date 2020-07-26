@@ -12,14 +12,17 @@ class Rook(Piece):
 	def toString(self):
 		return("R" if self.alliance == "Black" else "r")
 
-	def movement(self, alliance, position):
-		original_position = position
+	def movement(self):
+		alliance = self.alliance
+		original_position = self.position
 		legal_moves = []
 		
-		test_position = original_position-1
-		while test_position%7 != 0:
-			legal_moves.append(test_position)
-			test_position -= 1
+
+		if original_position % 8 != 0:
+			test_position = original_position-1
+			while test_position%7 != 0:
+				legal_moves.append(test_position)
+				test_position -= 1
 
 		test_position = original_position+1
 		while test_position%8 != 0:

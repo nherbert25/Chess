@@ -13,5 +13,5 @@ class Pawn(Piece):
 	def toString(self):
 		return("P" if self.alliance == "Black" else "p")
 
-	def movement(self, alliance, position):
+	def movement(self):
 		pass
