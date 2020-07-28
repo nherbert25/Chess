@@ -18,11 +18,13 @@ class Rook(Piece):
 		legal_moves = []
 		
 
+		#not going all the way up or to the left
 		if original_position % 8 != 0:
 			test_position = original_position-1
-			while test_position%7 != 0:
+			while test_position%8 != 0:
 				legal_moves.append(test_position)
 				test_position -= 1
+			legal_moves.append(test_position)
 
 		test_position = original_position+1
 		while test_position%8 != 0:
@@ -30,7 +32,7 @@ class Rook(Piece):
 			test_position += 1
 
 		test_position = original_position-8
-		while test_position > 0:
+		while test_position >= 0:
 			legal_moves.append(test_position)
 			test_position -= 8
 		

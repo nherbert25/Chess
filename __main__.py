@@ -123,12 +123,7 @@ while not crashed:
 
 			#if already highlighted, unselect square
 			if currently_selected_square == clicked_square:
-				for _ in allPieces:
-					#print(_)
-					if len(_) == 2:
-						print('THIS BOOYYYYY')
-						print(_)
-						allPieces.remove(_)
+				allPieces = [x for x in allPieces if len(x) != 2]
 				#remove red square and dots
 				currently_selected_square = None
 
@@ -154,6 +149,7 @@ while not crashed:
 						print([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
 						allPieces.append([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
 
+				#pdb.set_trace()
 
 				#add dots
 				
@@ -191,9 +187,8 @@ while not crashed:
 
 	#might need to remove drawChessPieces, it's making it very slow, but necessary to repaint over pieces at the moment...
 	#drawChessPieces()
+
 	for img in allPieces:
-		#img[0] = <Surface(100x100x32 SW)>
-		#img[1] = [200.0, 0]
 		gameDisplay.blit(img[0], img[1])
 
 #		print(img)
