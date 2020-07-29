@@ -6,7 +6,9 @@ cleaning up sprite logic
 
 whos turn?
 
-piece movement/legal squares
+piece potential movement
+
+piece collision
 
 
 end game condition
