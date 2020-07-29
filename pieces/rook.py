@@ -4,10 +4,12 @@ class Rook(Piece):
 
 	alliance = None
 	position = None
+	sprite = None
 	
 	def __init__(self, alliance, position):
 		self.alliance = alliance
 		self.position = position
+		#self.sprite = "../ChessArt/"+alliance[0].upper()+toString().upper()+".png"
 		
 	def toString(self):
 		return("R" if self.alliance == "Black" else "r")

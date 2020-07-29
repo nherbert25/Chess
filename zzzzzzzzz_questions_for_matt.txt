@@ -14,3 +14,14 @@ I could create a new piece using variables from the old piece and the new square
 Where do I put functions that require input from all squares?
 I want to keep the logic for a type of piece within the class of the piece. But again, that method
 requires input from the entire board state, not just variables from that piece.
+
+
+3.
+How do I create a null Piece in my main function without importing it???
+from pieces.nullPiece import NullPiece
+
+4. 
+How do I instanciate a class with a default function that comes from the class itself which requires an input variable?
+see rook
+		#self.sprite = "../ChessArt/"+alliance[0].upper()+toString().upper()+".png"  <-- I want the default value of sprite to depend on the function toString, defined in the class
+		

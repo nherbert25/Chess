@@ -171,12 +171,19 @@ while not crashed:
 
 			#if square is already select, and you select another square
 			elif currently_selected_square is not None:
-				if clicked_square in legal_moves:
+				if legal_moves is not None and clicked_square in legal_moves:
 					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
 					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece
 
+					img = pygame.image.load("./ChessArt/"+chessBoard.gameTiles[clicked_square].pieceOnTile.alliance[0].upper()+chessBoard.gameTiles[clicked_square].pieceOnTile.toString().upper()+".png")
+					img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
+					#pdb.set_trace()
+					#allPieces[clicked_square] = [img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos], chessBoard.gameTiles[clicked_square].pieceOnTile]
 
 
+
+					allPieces = [x for x in allPieces if len(x) != 2]
+					legal_moves = None
 					currently_selected_square = None
 				pass
 
@@ -215,6 +222,8 @@ while not crashed:
 
 	for img in allTiles:
 		pygame.draw.rect(gameDisplay, img[0], img[1])
+
+#64 int list with piece:   [img, [xpos, ypos], chessBoard.gameTiles[number].pieceOnTile]
 	for img in allPieces:
 		gameDisplay.blit(img[0], img[1])
 
