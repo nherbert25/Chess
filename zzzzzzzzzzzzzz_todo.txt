@@ -1,0 +1,12 @@
+robust tile class logic
+	piece_selected = False
+	legal_move = False
+
+cleaning up sprite logic
+
+whos turn?
+
+piece movement/legal squares
+
+
+end game condition

@@ -24,4 +24,8 @@ from pieces.nullPiece import NullPiece
 How do I instanciate a class with a default function that comes from the class itself which requires an input variable?
 see rook
 		#self.sprite = "../ChessArt/"+alliance[0].upper()+toString().upper()+".png"  <-- I want the default value of sprite to depend on the function toString, defined in the class
-		
+
+
+5. 
+I want position to be a variable in the "piece" class, because I want the movement calculation for the piece (which depends on the position) to be in the piece class.
+HOWEVER, I want the position variable to be pulled from the tile it's on, not just when initialized, but always.

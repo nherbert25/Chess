@@ -1,7 +1,16 @@
+import pygame
+
 class Piece:
 
-	def __init__(self):
-		pass
+	alliance = None
+	position = None
+	sprite = None
 
-	def movement(self):
+	def __init__(self, alliance):
+		self.sprite = "./ChessArt/"+alliance[0].upper()+self.toString().upper()+".png"
+
+	def movement(self, position):
+		pass
+	
+	def toString(self):
 		pass

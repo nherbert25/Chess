@@ -156,7 +156,7 @@ while not crashed:
 				mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square])
 
 
-				legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement()
+				legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement(chessBoard.gameTiles[clicked_square].tileCoordinate)
 
 
 
@@ -174,15 +174,8 @@ while not crashed:
 				if legal_moves is not None and clicked_square in legal_moves:
 					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
 					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece
+					allPieces = mv.rebuild_sprites(chessBoard.gameTiles, display_width, display_height)
 
-					img = pygame.image.load("./ChessArt/"+chessBoard.gameTiles[clicked_square].pieceOnTile.alliance[0].upper()+chessBoard.gameTiles[clicked_square].pieceOnTile.toString().upper()+".png")
-					img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
-					#pdb.set_trace()
-					#allPieces[clicked_square] = [img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos], chessBoard.gameTiles[clicked_square].pieceOnTile]
-
-
-
-					allPieces = [x for x in allPieces if len(x) != 2]
 					legal_moves = None
 					currently_selected_square = None
 				pass

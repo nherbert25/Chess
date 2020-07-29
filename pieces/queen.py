@@ -6,6 +6,7 @@ class Queen(Piece):
 	position = None
 	
 	def __init__(self, alliance, position):
+		Piece.__init__(self, alliance)
 		self.alliance = alliance
 		self.position = position
 		

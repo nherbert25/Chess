@@ -1,3 +1,5 @@
+import pygame
+
 #takes in x,y of where you click, returns the square which you clicked as an integer 0-63
 def which_square(mouse_x, mouse_y, display_width, display_height):
     square = 0
@@ -43,26 +45,36 @@ def return_list_of_legal_moves(Tile):
     position = Tile.tileCoordinate
     alliance = Piece.alliance
     board_state = None
-    potential_legal_moves = [Piece.movement()]
-    
-    
-
-    
+    potential_legal_moves = [Piece.movement(position)]
 
 
 
 
-    print(Piece, position, alliance, board_state)
+    #print(Piece, position, alliance, board_state)
     #Tile.tileCoordinate = 14
-    
-    
-    
-    
-    print(potential_legal_moves)
+    #print(potential_legal_moves)
 
 
 
 
 #detects collisions, removes illegal squares
 #takes in piece clicked, square clicked, and tuple of square and alliance of all other tiles (3, w)  returns legal moves
+
+#rebuild sprites on tiles
+def rebuild_sprites(board, display_width, display_height):
+    allPieces = []
+    for key,value in (board.items()):
+        #print(key, value)
+        #return allPieces datatype
+
+        if value.pieceOnTile.sprite is not None:
+            print(value.pieceOnTile) #NullPiece
+
+            img = pygame.image.load(value.pieceOnTile.sprite)
+            img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
+            allPieces.append([img, [value.xpos, value.ypos], value.pieceOnTile])
+    
+    return(allPieces)
+        #if board[key]
+        #allPieces.append[clicked_square] = [img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos], chessBoard.gameTiles[clicked_square].pieceOnTile]
 
