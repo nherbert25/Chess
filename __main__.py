@@ -1,9 +1,11 @@
 import pdb
+import sys
 import pygame
 from board.chessBoard import Board
 import board.move as mv
 
 
+whos_turn = 'White'
 
 pygame.init()
 
@@ -12,9 +14,12 @@ display_height = 800
 currently_selected_square = None
 
 '''
-#the class which holds all the pieces
+#the MAIN class which holds all the pieces
 gameTiles = {}
 is a 64 int dictionary which holds the instance of the class Tile
+
+chessBoard.gameTiles[int 0-63]  <-- selects the tile
+
 '''
 chessBoard = Board()
 chessBoard.createBoard()
@@ -63,7 +68,6 @@ def drawChessPieces():
 				img = pygame.image.load("./ChessArt/"+chessBoard.gameTiles[number].pieceOnTile.alliance[0].upper()+chessBoard.gameTiles[number].pieceOnTile.toString().upper()+".png")
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 				allPieces.append([img, [xpos, ypos], chessBoard.gameTiles[number].pieceOnTile])
-
 			xpos += display_width/8
 			number += 1
 		xpos = 0
@@ -114,48 +118,54 @@ while not crashed:
 		if event.type == pygame.QUIT:
 			crashed = True
 			pygame.quit()
-			quit()
+			sys.exit()
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			mouse_x, mouse_y = pygame.mouse.get_pos()
 			#integer from 0-63
 			clicked_square = mv.which_square(mouse_x, mouse_y, display_width, display_height)
 
-			#if already highlighted, unselect square
+			#pdb.set_trace()
+			#print(chessBoard.gameTiles[clicked_square].alliance)
+
+			
+			#if piece is selected, unselect
 			if currently_selected_square == clicked_square:
 				allPieces = [x for x in allPieces if len(x) != 2]
-				#remove red square and dots
 				currently_selected_square = None
 
-			#if no piece is selected, select the square and display moves
-			elif currently_selected_square is None:
-				#AND THIS IS A LEGAL PIECE TO MOVE!!!!
+
+			#if no piece is selected, select the square (if legal) and display moves
+			elif chessBoard.gameTiles[clicked_square].pieceOnTile.alliance == whos_turn:
+				allPieces = [x for x in allPieces if len(x) != 2]
 				img = pygame.image.load("./ChessArt/red_square.png")
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
-					#get square # and piece from square
+				
+				
+				#get square # and piece from square
 				#movement
-				print(chessBoard.gameTiles[clicked_square].pieceOnTile)
+				#print(chessBoard.gameTiles[clicked_square].pieceOnTile)
 				#grab legal moves from tile
-				print(chessBoard.gameTiles[clicked_square].pieceOnTile.movement())
+				#print(chessBoard.gameTiles[clicked_square].pieceOnTile.movement())
 
 				img = pygame.image.load("./ChessArt/red_dot.png")
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
-
 				legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement()
 				
 				if legal_moves is not None:
 					for legal_move in legal_moves:
-						print([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
+						#print([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
 						allPieces.append([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
-
-				#pdb.set_trace()
-
-				#add dots
-				
-					#find legal moves
-					#add red dots to allPieces
 				currently_selected_square = clicked_square
+
+			#if square is already select, and you select another square
+			elif currently_selected_square is not None:
+				pass
+
+
+
+
 
 			else:
 				pass
@@ -185,16 +195,13 @@ while not crashed:
 
 
 
-	#might need to remove drawChessPieces, it's making it very slow, but necessary to repaint over pieces at the moment...
-	#drawChessPieces()
 
+	for img in allTiles:
+		pygame.draw.rect(gameDisplay, img[0], img[1])
 	for img in allPieces:
 		gameDisplay.blit(img[0], img[1])
 
-#		print(img)
-#		print(img[0])
-#		print(img[1])
-#		print('next')
+
 
 	pygame.display.update()
 	clock.tick(60)
