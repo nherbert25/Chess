@@ -11,4 +11,4 @@ piece potential movement
 piece collision
 
 
-end game condition
+end game conditiondf
