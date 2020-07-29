@@ -3,6 +3,7 @@ import sys
 import pygame
 from board.chessBoard import Board
 import board.move as mv
+from pieces.nullPiece import NullPiece
 
 
 whos_turn = 'White'
@@ -37,7 +38,7 @@ crashed = False
 ########################################################################
 ########################################################################
 
-#nothing list of squares, w, h, etc.
+#list of tiles, w, h, etc. to be blited ([color, [x,y,w,h]])
 allTiles = []
 #64 int list with piece:   [img, [xpos, ypos], chessBoard.gameTiles[number].pieceOnTile]
 allPieces = []
@@ -138,6 +139,8 @@ while not crashed:
 			#if no piece is selected, select the square (if legal) and display moves
 			elif chessBoard.gameTiles[clicked_square].pieceOnTile.alliance == whos_turn:
 				allPieces = [x for x in allPieces if len(x) != 2]
+
+				#highlight selected square
 				img = pygame.image.load("./ChessArt/red_square.png")
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
@@ -149,11 +152,18 @@ while not crashed:
 				#grab legal moves from tile
 				#print(chessBoard.gameTiles[clicked_square].pieceOnTile.movement())
 
-				img = pygame.image.load("./ChessArt/red_dot.png")
-				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
+				#calculate legal moves
+				mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square])
+
+
 				legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement()
-				
+
+
+
+				#display legal moves
 				if legal_moves is not None:
+					img = pygame.image.load("./ChessArt/red_dot.png")
+					img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 					for legal_move in legal_moves:
 						#print([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
 						allPieces.append([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
@@ -161,6 +171,13 @@ while not crashed:
 
 			#if square is already select, and you select another square
 			elif currently_selected_square is not None:
+				if clicked_square in legal_moves:
+					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
+					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece
+
+
+
+					currently_selected_square = None
 				pass
 
 

@@ -1,0 +1,16 @@
+
+
+1. 
+I want to keep 'tiles' and 'pieces' as seperate classes since they feel distinct.
+
+However, how do I keep the piece 'position' tied to the square that it's on instead of having it stay a seperate variable? 
+When I move the piece, currently I need to update the piece positon, but I want all of it's methods to instead pull from the tile it's on.
+
+I could create a new piece using variables from the old piece and the new square, but that feels clumsy. 
+
+
+
+2.
+Where do I put functions that require input from all squares?
+I want to keep the logic for a type of piece within the class of the piece. But again, that method
+requires input from the entire board state, not just variables from that piece.

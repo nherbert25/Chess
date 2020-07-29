@@ -37,8 +37,32 @@ def which_square(mouse_x, mouse_y, display_width, display_height):
 
 
 
-def return_list_of_legal_moves(piece, position, alliance):
-    pass
+#board_state is boolean list of 64 squares, 0 for black piece
+def return_list_of_legal_moves(Tile):
+    Piece = Tile.pieceOnTile
+    position = Tile.tileCoordinate
+    alliance = Piece.alliance
+    board_state = None
+    potential_legal_moves = [Piece.movement()]
+    
+    
+
+    
+
+
+
+
+    print(Piece, position, alliance, board_state)
+    #Tile.tileCoordinate = 14
+    
+    
+    
+    
+    print(potential_legal_moves)
+
+
+
+
 #detects collisions, removes illegal squares
 #takes in piece clicked, square clicked, and tuple of square and alliance of all other tiles (3, w)  returns legal moves
 
