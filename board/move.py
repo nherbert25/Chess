@@ -1,4 +1,5 @@
 import pygame
+import pdb
 
 #takes in x,y of where you click, returns the square which you clicked as an integer 0-63
 def which_square(mouse_x, mouse_y, display_width, display_height):
@@ -38,24 +39,40 @@ def which_square(mouse_x, mouse_y, display_width, display_height):
     return(square)
 
 
-
+#detects collisions, removes illegal squares
 #board_state is boolean list of 64 squares, 0 for black piece
 def return_list_of_legal_moves(Tile):
     Piece = Tile.pieceOnTile
     position = Tile.tileCoordinate
     alliance = Piece.alliance
     board_state = None
-    potential_legal_moves = [Piece.movement(position)]
+    potential_legal_moves = Piece.movement(position)
+
+    #pdb.set_trace()
+    print(Piece.name)
+    if Piece.name == 'knight':
+        return(potential_legal_moves)
+    if Piece.name == 'pawn':
+        return([])
+    #if Piece.name == 'rook':
+        #for direction in potential_legal_moves:
+            #for square in direction:
+            #if alliance null
+                #append square to legal moves
+            #elif alliance == piece alliance break
+            #elif alliance != piece alliance
+            #append square to legal moves
+
+    else:
+        return(Piece.movement(position))
 
 
 
 
+#RETURN A LIST!!!!
     #print(Piece, position, alliance, board_state)
     #Tile.tileCoordinate = 14
     #print(potential_legal_moves)
-
-#detects collisions, removes illegal squares
-#takes in piece clicked, square clicked, and tuple of square and alliance of all other tiles (3, w)  returns legal moves
 
 
 

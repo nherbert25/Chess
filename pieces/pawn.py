@@ -4,6 +4,7 @@ class Pawn(Piece):
 
 	alliance = None
 	position = None
+	name = 'pawn'
 	
 	def __init__(self, alliance, position):
 		Piece.__init__(self, alliance)

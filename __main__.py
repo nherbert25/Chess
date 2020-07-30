@@ -33,10 +33,10 @@ crashed = False
 
 
 
-
-
 ########################################################################
 ########################################################################
+
+
 
 #list of tiles, w, h, etc. to be blited ([color, [x,y,w,h]])
 allTiles = []
@@ -73,38 +73,6 @@ def drawChessPieces():
 			number += 1
 		xpos = 0
 		ypos += display_height/8
-
-
-	'''
-	for _ in range(8):
-		for _ in range(8):
-			if color % 2 == 0:
-				#draw the square
-				squares(xpos, ypos, width, height, white)
-				#if square not empty, add image of piece to allPieces list
-				if not chessBoard.gameTiles[number].pieceOnTile.toString() == '-':
-					img = pygame.image.load("./ChessArt/"+chessBoard.gameTiles[number].pieceOnTile.alliance[0].upper()+chessBoard.gameTiles[number].pieceOnTile.toString().upper()+".png")
-					img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
-					allPieces.append([img, [xpos, ypos], chessBoard.gameTiles[number].pieceOnTile])
-
-				xpos += display_width/8
-
-			else:
-				squares(xpos, ypos, width, height, black)
-				if not chessBoard.gameTiles[number].pieceOnTile.toString() == '-':
-					img = pygame.image.load("./ChessArt/"+chessBoard.gameTiles[number].pieceOnTile.alliance[0].upper()+chessBoard.gameTiles[number].pieceOnTile.toString().upper()+".png")
-					img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
-					allPieces.append([img, [xpos, ypos], chessBoard.gameTiles[number].pieceOnTile])
-				xpos += display_width/8
-
-			color += 1
-			number += 1
-
-		color += 1
-		xpos = 0
-		ypos += display_height/8
-		'''
-
 
 
 
@@ -145,11 +113,11 @@ while not crashed:
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
 
 				#calculate legal moves NEED TO FINISH THEN CHANGE 'legal_moves' TO RETURN OF THIS FUNCTION
-				mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square])
+				legal_moves = mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square])
 
 				#NEED FUNCTION TO BLOCK SQUARES!!
 				#legal_moves = blocked_squares(chessBoard)
-				legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement(chessBoard.gameTiles[clicked_square].tileCoordinate)
+				#legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement(chessBoard.gameTiles[clicked_square].tileCoordinate)
 				print(legal_moves)
 
 				#display legal moves

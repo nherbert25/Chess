@@ -35,3 +35,7 @@ why is an empty list [] a nonetype?
 if var in []:
 	#do thing
 error - nonetypes are not iterable
+
+7. when changing the functionality of a function, like the returned datatype for example, how do I... maintain the current code. Do I name my new function something else?
+I want to keep it pretty and keep the same name....
+Currently I'm just commenting out the giant chunk of old code
