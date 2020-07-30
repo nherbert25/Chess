@@ -42,8 +42,6 @@ class Rook(Piece):
 			potential_legal_moves[3].append(test_position)
 			test_position += 8
 
-		#return legal squares
-		print(potential_legal_moves)
 		return(potential_legal_moves)
 
 

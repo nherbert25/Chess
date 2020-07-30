@@ -18,6 +18,8 @@ pawn
 
 castling (going through check!)
 promotion
+enpassant
+
 
 pin
 check (forced to move king or block attack)

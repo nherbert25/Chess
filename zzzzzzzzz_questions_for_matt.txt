@@ -60,3 +60,11 @@ movement_new vs movement
 pawn promotion
 where do I put the logic for that? Shouldn't the pawn movement function 'call' the promotion function if it reaches the end of the board?
 But... the logic is to replace the piece class with a new piece. How the heck do you code that INTO the pawn piece class???
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+9. 
+code optimization. How much should I worry about doing checks over and over again until it becomes unreasonable? Strive for O(n)? Does it matter at all? Is it okay to
+check if a piece has 'moved before' even if it's irrelevant to the piece? It will never matter for a knight, but will for pawn, king, and rook
+
+Is it okay to loop through ALL of the pieces on the board for ALL potential moves to see if a king is in check or will be after a move?
