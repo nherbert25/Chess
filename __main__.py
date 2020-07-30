@@ -144,21 +144,13 @@ while not crashed:
 				img = pygame.image.load("./ChessArt/red_square.png")
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
-				
-				
-				#get square # and piece from square
-				#movement
-				#print(chessBoard.gameTiles[clicked_square].pieceOnTile)
-				#grab legal moves from tile
-				#print(chessBoard.gameTiles[clicked_square].pieceOnTile.movement())
 
 				#calculate legal moves
 				mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square])
 
-
+				#NEED FUNCTION TO BLOCK SQUARES!!
+				#legal_moves = blocked_squares(chessBoard)
 				legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement(chessBoard.gameTiles[clicked_square].tileCoordinate)
-
-
 
 				#display legal moves
 				if legal_moves is not None:
@@ -168,6 +160,8 @@ while not crashed:
 						#print([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
 						allPieces.append([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
 				currently_selected_square = clicked_square
+
+
 
 			#if square is already select, and you select another square
 			elif currently_selected_square is not None:
