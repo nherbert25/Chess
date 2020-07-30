@@ -15,7 +15,7 @@ class Rook(Piece):
 	def toString(self):
 		return("R" if self.alliance == "Black" else "r")
 
-	def movement_new(self, original_position):
+	def movement(self, original_position):
 		potential_legal_moves = []
 
 		potential_legal_moves.append([])
@@ -47,7 +47,7 @@ class Rook(Piece):
 		return(potential_legal_moves)
 
 
-	def movement(self, original_position):
+	def movement_old(self, original_position):
 		potential_legal_moves = []
 
 

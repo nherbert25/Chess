@@ -41,12 +41,13 @@ def which_square(mouse_x, mouse_y, display_width, display_height):
 
 #detects collisions, removes illegal squares
 #board_state is boolean list of 64 squares, 0 for black piece
-def return_list_of_legal_moves(Tile):
+def return_list_of_legal_moves(Tile, Board):
     Piece = Tile.pieceOnTile
     position = Tile.tileCoordinate
     alliance = Piece.alliance
     board_state = None
     potential_legal_moves = Piece.movement(position)
+    legal_moves = []
 
     #pdb.set_trace()
     print(Piece.name)
@@ -54,14 +55,19 @@ def return_list_of_legal_moves(Tile):
         return(potential_legal_moves)
     if Piece.name == 'pawn':
         return([])
-    #if Piece.name == 'rook':
-        #for direction in potential_legal_moves:
-            #for square in direction:
-            #if alliance null
-                #append square to legal moves
-            #elif alliance == piece alliance break
-            #elif alliance != piece alliance
-            #append square to legal moves
+    if Piece.name == 'rook':
+        #pdb.set_trace()
+        for direction in potential_legal_moves:
+            for square in direction:
+                if Board[square].pieceOnTile.alliance is None:
+                    legal_moves.append(square)
+                elif Board[square].pieceOnTile.alliance == alliance:
+                    break
+                elif Board[square].pieceOnTile.alliance != alliance:
+                    legal_moves.append(square)
+                    break
+        print(legal_moves)
+        return(legal_moves)
 
     else:
         return(Piece.movement(position))

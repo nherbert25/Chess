@@ -7,10 +7,24 @@ cleaning up sprite logic    ehhh don't care
 whos turn? DONE
 
 
-piece collision
+piece collision DONE
 
 piece potential movement
+knight DONE
+bishop
+queen
+king
+pawn
 
+castling (going through check!)
+promotion
 
+pin
+check (forced to move king or block attack)
+double check (forced to move king)
 
 end game condition
+if king in check and no legal moves, game over
+
+
+make red dots smaller because they're annoying tf out of me

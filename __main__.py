@@ -112,13 +112,8 @@ while not crashed:
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
 
-				#calculate legal moves NEED TO FINISH THEN CHANGE 'legal_moves' TO RETURN OF THIS FUNCTION
-				legal_moves = mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square])
-
-				#NEED FUNCTION TO BLOCK SQUARES!!
-				#legal_moves = blocked_squares(chessBoard)
-				#legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement(chessBoard.gameTiles[clicked_square].tileCoordinate)
-				print(legal_moves)
+				#calculate legal moves
+				legal_moves = mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square], chessBoard.gameTiles)
 
 				#display legal moves
 				if legal_moves is not None:
@@ -146,9 +141,6 @@ while not crashed:
 						whos_turn = 'Black'
 					else:
 						whos_turn = 'White'
-
-
-
 
 
 

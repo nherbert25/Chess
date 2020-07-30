@@ -8,34 +8,55 @@ When I move the piece, currently I need to update the piece positon, but I want 
 
 I could create a new piece using variables from the old piece and the new square, but that feels clumsy. 
 
+Solved maybe with class inheritance, but do I make a new super class?..... Seems a little untidy.
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
 2.
 Where do I put functions that require input from all squares?
 I want to keep the logic for a type of piece within the class of the piece. But again, that method
 requires input from the entire board state, not just variables from that piece.
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
 3.
 How do I create a null Piece in my main function without importing it???
 from pieces.nullPiece import NullPiece
 
-4. 
-How do I instanciate a class with a default function that comes from the class itself which requires an input variable?
+-------------------------------------------------------------------------------------------------------------------------------------
+
+4. SOLVED - needed to change to "self.toString()" works even if it's part of __init__ before the method is even defined!
+How do I instanciate (initialize?) a class with a default function that comes from the class itself which requires an input variable?
 see rook
 		#self.sprite = "../ChessArt/"+alliance[0].upper()+toString().upper()+".png"  <-- I want the default value of sprite to depend on the function toString, defined in the class
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
 5. 
 I want position to be a variable in the "piece" class, because I want the movement calculation for the piece (which depends on the position) to be in the piece class.
 HOWEVER, I want the position variable to be pulled from the tile it's on, not just when initialized, but always.
 
-6.
+Solved maybe, class inheritance.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+6. SOLVED - This is just not true.
 why is an empty list [] a nonetype?
 if var in []:
 	#do thing
 error - nonetypes are not iterable
 
-7. when changing the functionality of a function, like the returned datatype for example, how do I... maintain the current code. Do I name my new function something else?
+-------------------------------------------------------------------------------------------------------------------------------------
+
+7.
+When changing the functionality of a function, like the returned datatype for example, how do I... maintain the current code. Do I name my new function something else?
 I want to keep it pretty and keep the same name....
 Currently I'm just commenting out the giant chunk of old code
+movement_new vs movement
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+8. 
+pawn promotion
+where do I put the logic for that? Shouldn't the pawn movement function 'call' the promotion function if it reaches the end of the board?
+But... the logic is to replace the piece class with a new piece. How the heck do you code that INTO the pawn piece class???
