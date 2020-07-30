@@ -49,13 +49,13 @@ def return_list_of_legal_moves(Tile, Board):
     potential_legal_moves = Piece.movement(position)
     legal_moves = []
 
-    #pdb.set_trace()
 
     if Piece.name == 'knight':
         for square in potential_legal_moves:
             if Board[square].pieceOnTile.alliance != alliance:
                     legal_moves.append(square)
         return(legal_moves)
+
 
     if Piece.name == 'pawn':
         forward = potential_legal_moves[0]
@@ -72,8 +72,7 @@ def return_list_of_legal_moves(Tile, Board):
         return(legal_moves)
 
 
-    if Piece.name == 'rook':
-        #pdb.set_trace()
+    else:
         for direction in potential_legal_moves:
             for square in direction:
                 if Board[square].pieceOnTile.alliance is None:
@@ -83,19 +82,11 @@ def return_list_of_legal_moves(Tile, Board):
                 elif Board[square].pieceOnTile.alliance != alliance:
                     legal_moves.append(square)
                     break
-        print(legal_moves)
+        #print(legal_moves)
         return(legal_moves)
 
-    else:
-        return(Piece.movement(position))
-
-
-
-
-#RETURN A LIST!!!!
-    #print(Piece, position, alliance, board_state)
-    #Tile.tileCoordinate = 14
-    #print(potential_legal_moves)
+    #else:
+    #    return(Piece.movement(position))
 
 
 

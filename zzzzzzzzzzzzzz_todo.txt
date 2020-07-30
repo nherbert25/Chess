@@ -11,19 +11,22 @@ piece collision DONE
 
 piece potential movement
 knight DONE
-bishop
-queen
-king
-pawn
+bishop DONE
+queen DONE
+king DONE
+pawn DONE
 
-castling (going through check!)
+
 promotion
 enpassant
 
 
-pin
 check (forced to move king or block attack)
+	loop through opponent's pieces to scan for check
 double check (forced to move king)
+pin
+castling (going through check!)
+
 
 end game condition
 if king in check and no legal moves, game over

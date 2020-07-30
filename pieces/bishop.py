@@ -32,15 +32,13 @@ class Bishop(Piece):
 		potential_legal_moves.append([])
 		test_position = original_position+9
 		while test_position <= 63 and test_position % 8 > original_position % 8:
-			potential_legal_moves[0].append(test_position)
+			potential_legal_moves[2].append(test_position)
 			test_position += 9
 
 		potential_legal_moves.append([])
 		test_position = original_position+7
 		while test_position <= 63 and test_position % 8 < original_position % 8:
-			potential_legal_moves[0].append(test_position)
+			potential_legal_moves[3].append(test_position)
 			test_position += 7
 
-		#return legal squares
-		print(potential_legal_moves)
 		return(potential_legal_moves)
