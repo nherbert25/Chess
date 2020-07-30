@@ -1,14 +1,16 @@
 robust tile class logic
-	piece_selected = False
-	legal_move = False
+	piece_selected = False  ehhh don't care
+	legal_move = False      ehhhh don't care
 
-cleaning up sprite logic
+cleaning up sprite logic    ehhh don't care
 
-whos turn?
+whos turn? DONE
 
-piece potential movement
 
 piece collision
 
+piece potential movement
 
-end game conditiond
+
+
+end game condition

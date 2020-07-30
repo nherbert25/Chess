@@ -123,21 +123,20 @@ while not crashed:
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			mouse_x, mouse_y = pygame.mouse.get_pos()
-			#integer from 0-63
 			clicked_square = mv.which_square(mouse_x, mouse_y, display_width, display_height)
 
-			#pdb.set_trace()
-			#print(chessBoard.gameTiles[clicked_square].alliance)
-
 			
-			#if piece is selected, unselect
+			#if square is already selected, unselect
+			#if chessBoard.gameTiles[clicked_square].piece_selected == True:
+				#chessBoard.gameTiles[clicked_square].piece_selected = False
 			if currently_selected_square == clicked_square:
 				allPieces = [x for x in allPieces if len(x) != 2]
 				currently_selected_square = None
 
 
-			#if no piece is selected, select the square (if legal) and display moves
+			#if square selected has a piece of your alliance on it, select the square and display moves
 			elif chessBoard.gameTiles[clicked_square].pieceOnTile.alliance == whos_turn:
+				#chessBoard.gameTiles[clicked_square].piece_selected == True
 				allPieces = [x for x in allPieces if len(x) != 2]
 
 				#highlight selected square
@@ -145,12 +144,13 @@ while not crashed:
 				img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
 
-				#calculate legal moves
+				#calculate legal moves NEED TO FINISH THEN CHANGE 'legal_moves' TO RETURN OF THIS FUNCTION
 				mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square])
 
 				#NEED FUNCTION TO BLOCK SQUARES!!
 				#legal_moves = blocked_squares(chessBoard)
 				legal_moves = chessBoard.gameTiles[clicked_square].pieceOnTile.movement(chessBoard.gameTiles[clicked_square].tileCoordinate)
+				print(legal_moves)
 
 				#display legal moves
 				if legal_moves is not None:
@@ -163,7 +163,9 @@ while not crashed:
 
 
 
-			#if square is already select, and you select another square
+
+
+			#if a piece is already select and you select a legal move, move the piece and change turns
 			elif currently_selected_square is not None:
 				if legal_moves is not None and clicked_square in legal_moves:
 					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
@@ -172,7 +174,11 @@ while not crashed:
 
 					legal_moves = None
 					currently_selected_square = None
-				pass
+					if whos_turn == 'White':
+						whos_turn = 'Black'
+					else:
+						whos_turn = 'White'
+
 
 
 
@@ -180,33 +186,9 @@ while not crashed:
 
 			else:
 				pass
-				#check if legal square
-				#if legal, move piece,
-					#get square # and piece from square
-					#find legal moves
-					#add red dots to allPieces
-				#if own square, select square
-				#else do nothing
 
-
-			#select_square()  - if you can, check if correct color check if in check			
-			#blit square
-			#if currently_selected_square = None:
-			#currently_selected_square = selected square
-			#draw red square
-			#if currently selected is same as current square, selected sqare = none
-			#else: evaluate all legal moves, draw circles
-			#pygame.draw.square(parameters)
-			#pygame.display.update()
-			#screen.blit(param) updates only that part of the screen
-		#print(event)
-	#draws the pieces. img[0] is specific surface, img[1] is position
 
 	#gameDisplay.fill([255,255,255])
-
-
-
-
 	for img in allTiles:
 		pygame.draw.rect(gameDisplay, img[0], img[1])
 

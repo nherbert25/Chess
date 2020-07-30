@@ -54,11 +54,11 @@ def return_list_of_legal_moves(Tile):
     #Tile.tileCoordinate = 14
     #print(potential_legal_moves)
 
-
-
-
 #detects collisions, removes illegal squares
 #takes in piece clicked, square clicked, and tuple of square and alliance of all other tiles (3, w)  returns legal moves
+
+
+
 
 #rebuild sprites on tiles
 def rebuild_sprites(board, display_width, display_height):
@@ -68,7 +68,7 @@ def rebuild_sprites(board, display_width, display_height):
         #return allPieces datatype
 
         if value.pieceOnTile.sprite is not None:
-            print(value.pieceOnTile) #NullPiece
+            #print(value.pieceOnTile) #NullPiece
 
             img = pygame.image.load(value.pieceOnTile.sprite)
             img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))

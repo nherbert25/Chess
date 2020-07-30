@@ -29,3 +29,9 @@ see rook
 5. 
 I want position to be a variable in the "piece" class, because I want the movement calculation for the piece (which depends on the position) to be in the piece class.
 HOWEVER, I want the position variable to be pulled from the tile it's on, not just when initialized, but always.
+
+6.
+why is an empty list [] a nonetype?
+if var in []:
+	#do thing
+error - nonetypes are not iterable
