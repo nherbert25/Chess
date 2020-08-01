@@ -10,6 +10,12 @@ I could create a new piece using variables from the old piece and the new square
 
 Solved maybe with class inheritance, but do I make a new super class?..... Seems a little untidy.
 
+
+
+Ask yourself what this variable/class/whatever does. If it servers no function, remove it.
+A book isn't finished when you can't add anymore words, a book is finished when you can't remove any more.
+Each class should serve a function, there is no right answer.
+
 -------------------------------------------------------------------------------------------------------------------------------------
 
 2.
@@ -17,11 +23,17 @@ Where do I put functions that require input from all squares?
 I want to keep the logic for a type of piece within the class of the piece. But again, that method
 requires input from the entire board state, not just variables from that piece.
 
+Probably the board class. You could pass the board state to the piece class if you want. Again, where, logicially, do you think your code should go? What role does this
+class fill? There's no 'correct' answer, keep things organized, clean, and logical when possible, but just decide where you want certain types of operations to live.
+
 -------------------------------------------------------------------------------------------------------------------------------------
 
 3.
 How do I create a null Piece in my main function without importing it???
 from pieces.nullPiece import NullPiece
+
+Python is only running one instance of pygame. If you import the module into multiple files, it's allowing pygame to be accessed there, but it won't make your code less efficient.
+
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -54,12 +66,18 @@ I want to keep it pretty and keep the same name....
 Currently I'm just commenting out the giant chunk of old code
 movement_new vs movement
 
+No easy answer, what I'm doing is fine.
+
 -------------------------------------------------------------------------------------------------------------------------------------
 
 8. 
 pawn promotion
 where do I put the logic for that? Shouldn't the pawn movement function 'call' the promotion function if it reaches the end of the board?
 But... the logic is to replace the piece class with a new piece. How the heck do you code that INTO the pawn piece class???
+
+You can put it either in board or piece class. Nothing is stopping you from taking in the board object to the pawn method, then initializing a new piece on the board object.
+Again, there's no right answer, but WHERE does this method go depends on how you structure your code. Personally, since the board is generally in charge of the state of the game,
+maybe it makes sense to add a 'can_promote' attribute to the pawn class, and a promote method to the board class which CHANGES THE ACTUAL BOARD STATE by replacing the piece
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -68,3 +86,30 @@ code optimization. How much should I worry about doing checks over and over agai
 check if a piece has 'moved before' even if it's irrelevant to the piece? It will never matter for a knight, but will for pawn, king, and rook
 
 Is it okay to loop through ALL of the pieces on the board for ALL potential moves to see if a king is in check or will be after a move?
+
+
+There is no hard or fast answer to this. The answer, according to Matt, is 'when it begins to be noticable/when it affects preformance.'
+Strive to make your code readable/clean/easy. THEN, if you have to, because of restraints etc. build in shortcuts. Hash table, lazy loads, etc. Pick off low hanging preformance fruits.
+THEN, ultimately, sometimes you NEED to have this crazy super fucked exception because it is the only thing that works.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+SVG is like a png but scales!
+wiki usually has free SVGs
+wikimedia commons?
+https://commons.wikimedia.org/wiki/File:Chess_Pieces_Sprite.svg
+
+attribution – You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+add a attribution.txt
+
+
+lazy load, recall previous calculations
+threads, run in the background and do calculations while waiting
+don't overindex on preformance
+
+function overrides
+pure/virtual functions
+abstract functions

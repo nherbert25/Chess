@@ -72,3 +72,49 @@ class Board:
 			if count == 8:
 				print('|','\r\n')
 				count = 0
+	
+	#detects collisions, removes illegal squares
+	#board_state is boolean list of 64 squares, 0 for black piece
+	def return_list_of_legal_moves(self, clicked_square):
+		Board = self.gameTiles
+		Piece = Board[clicked_square].pieceOnTile
+		position = clicked_square
+		alliance = Piece.alliance
+		potential_legal_moves = Piece.movement(position)
+		legal_moves = []
+
+
+		if Piece.name == 'knight':
+			for square in potential_legal_moves:
+				if Board[square].pieceOnTile.alliance != alliance:
+						legal_moves.append(square)
+			return(legal_moves)
+
+
+		if Piece.name == 'pawn':
+			forward = potential_legal_moves[0]
+			diagonal = potential_legal_moves[1]
+
+			for square in forward:
+				if Board[square].pieceOnTile.alliance is None:
+					legal_moves.append(square)
+				else:
+					break
+			for square in diagonal:
+				if Board[square].pieceOnTile.alliance is not None and Board[square].pieceOnTile.alliance != alliance:
+					legal_moves.append(square)
+			return(legal_moves)
+
+
+		else:
+			for direction in potential_legal_moves:
+				for square in direction:
+					if Board[square].pieceOnTile.alliance is None:
+						legal_moves.append(square)
+					elif Board[square].pieceOnTile.alliance == alliance:
+						break
+					elif Board[square].pieceOnTile.alliance != alliance:
+						legal_moves.append(square)
+						break
+			#print(legal_moves)
+			return(legal_moves)

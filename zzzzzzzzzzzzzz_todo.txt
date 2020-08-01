@@ -33,3 +33,15 @@ if king in check and no legal moves, game over
 
 
 make red dots smaller because they're annoying tf out of me
+
+
+keep track of moves, for export.
+
+integrate with stockfish
+https://www.google.com/search?q=python+stockfish+module&oq=python+stockfish+module&aqs=chrome..69i57j33.3743j0j7&sourceid=chrome&ie=UTF-8
+
+--------------------
+
+
+add dependancy file
+SVG for sprites

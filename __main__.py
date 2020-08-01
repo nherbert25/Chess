@@ -113,7 +113,8 @@ while not crashed:
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
 
 				#calculate legal moves
-				legal_moves = mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square], chessBoard.gameTiles)
+				#legal_moves = mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square], chessBoard.gameTiles)
+				legal_moves = chessBoard.return_list_of_legal_moves(clicked_square)
 
 				#display legal moves
 				if legal_moves is not None:
