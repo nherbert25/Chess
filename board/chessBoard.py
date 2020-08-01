@@ -74,8 +74,8 @@ class Board:
 				count = 0
 	
 	#detects collisions, removes illegal squares
-	#board_state is boolean list of 64 squares, 0 for black piece
-	def return_list_of_legal_moves(self, clicked_square):
+	#returns list of squares after collision
+	def return_list_of_legal_moves_except_check(self, clicked_square):
 		Board = self.gameTiles
 		Piece = Board[clicked_square].pieceOnTile
 		position = clicked_square
@@ -117,4 +117,46 @@ class Board:
 						legal_moves.append(square)
 						break
 			#print(legal_moves)
+
 			return(legal_moves)
+
+
+	
+		#now check if the king would be in check
+
+	def return_list_of_legal_moves(self, clicked_square):
+		whos_turn = self.gameTiles[clicked_square].pieceOnTile.alliance
+		for tile in self.gameTiles.values():
+			if tile.pieceOnTile.alliance == whos_turn and tile.pieceOnTile.name == 'king':
+				king_location = tile.tileCoordinate
+				break
+
+		#print(king_location)
+
+
+		potential_moves = self.return_list_of_legal_moves_except_check(clicked_square)
+		
+		
+		#alternate way instead of looping over all pieces moves is from the kings perspective!
+		#write a function for the king which is the functionality of a queen + knight
+		#check if the piece moves to the new square calculate all king moves,
+		#if king collides with a piece which has that legal move, then king is in check
+
+		pending_moves = potential_moves
+		for potential_move in potential_moves:
+			print('pending moves: ', pending_moves)
+			#FIRST YOU HAVE TO IMAGINE THE PIECE HAS MOVED!, ALSO THERES A BUG, THE MOVES DO NOT COME OUT CORRECTLY EVEN WITHOUT MOVING..
+			for tile in self.gameTiles.values():
+				if tile.pieceOnTile.alliance is not None and tile.pieceOnTile.alliance != whos_turn:
+					if king_location in self.return_list_of_legal_moves_except_check(tile.tileCoordinate):
+						pending_moves.remove(potential_move)
+						break
+
+		print(pending_moves)
+		return(pending_moves)
+		
+			#for piece on board where alliance opposite
+				#find legal moves
+				#if legal move puts king in check
+					# remove from legal moves
+					#break		

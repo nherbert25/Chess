@@ -53,7 +53,7 @@ def rebuild_sprites(board, display_width, display_height):
             img = pygame.image.load(value.pieceOnTile.sprite)
             img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
             allPieces.append([img, [value.xpos, value.ypos], value.pieceOnTile])
-    
+
     return(allPieces)
         #if board[key]
         #allPieces.append[clicked_square] = [img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos], chessBoard.gameTiles[clicked_square].pieceOnTile]
