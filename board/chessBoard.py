@@ -1,3 +1,5 @@
+import copy
+
 from board.tile import Tile
 from pieces.nullPiece import NullPiece
 from pieces import bishop
@@ -142,17 +144,36 @@ class Board:
 		#check if the piece moves to the new square calculate all king moves,
 		#if king collides with a piece which has that legal move, then king is in check
 
+
+		#you can move piece to put your king in check
+		#once in check, cant move any piece
 		pending_moves = potential_moves
+		return(pending_moves)
+
+
+		#BELOW HERE IS ADDING CHECKS FUNCTION!!!!
 		for potential_move in potential_moves:
+			test_state = copy.deepcopy(self)
+			test_board = test_state.gameTiles
+			
+			
+
+			test_board[potential_move].pieceOnTile = test_board[clicked_square].pieceOnTile
+			test_board[clicked_square].pieceOnTile = NullPiece
 			print('pending moves: ', pending_moves)
+			test_state.printBoard()
+			print('Current test board state: ', 'testing move - ', test_board[potential_move].pieceOnTile.name, ' ', test_board[potential_move].tileCoordinate)
 			#FIRST YOU HAVE TO IMAGINE THE PIECE HAS MOVED!, ALSO THERES A BUG, THE MOVES DO NOT COME OUT CORRECTLY EVEN WITHOUT MOVING..
-			for tile in self.gameTiles.values():
+			for tile in test_board.values():
 				if tile.pieceOnTile.alliance is not None and tile.pieceOnTile.alliance != whos_turn:
+					print(tile.tileCoordinate, tile.pieceOnTile.name, self.return_list_of_legal_moves_except_check(tile.tileCoordinate))
 					if king_location in self.return_list_of_legal_moves_except_check(tile.tileCoordinate):
-						pending_moves.remove(potential_move)
-						break
+						if pending_moves is not None:
+							pending_moves = pending_moves.remove(potential_move)
+						
 
 		print(pending_moves)
+		print('-----------------------------------------------------------------------')
 		return(pending_moves)
 		
 			#for piece on board where alliance opposite
