@@ -128,10 +128,7 @@ class Board:
 
 	def return_list_of_legal_moves(self, clicked_square):
 		whos_turn = self.gameTiles[clicked_square].pieceOnTile.alliance
-		for tile in self.gameTiles.values():
-			if tile.pieceOnTile.alliance == whos_turn and tile.pieceOnTile.name == 'king':
-				king_location = tile.tileCoordinate
-				break
+
 
 		#print(king_location)
 
@@ -162,6 +159,10 @@ class Board:
 			
 			self.gameTiles[potential_move].pieceOnTile = self.gameTiles[clicked_square].pieceOnTile
 			self.gameTiles[clicked_square].pieceOnTile = NullPiece()
+			for tile in self.gameTiles.values():
+				if tile.pieceOnTile.alliance == whos_turn and tile.pieceOnTile.name == 'king':
+					king_location = tile.tileCoordinate
+					break
 
 			print(removed_piece.name, self.gameTiles[potential_move].pieceOnTile.name)
 
@@ -177,6 +178,7 @@ class Board:
 							print('removing ', potential_move, ' from pending moves: ', pending_moves )
 							pending_moves.remove(potential_move)
 							print('after removing?....', pending_moves)
+							break
 
 			self.gameTiles[clicked_square].pieceOnTile = self.gameTiles[potential_move].pieceOnTile
 			self.gameTiles[potential_move].pieceOnTile = removed_piece

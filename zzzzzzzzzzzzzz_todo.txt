@@ -9,7 +9,7 @@ whos turn? DONE
 
 piece collision DONE
 
-piece potential movement
+piece potential movement DONE
 knight DONE
 bishop DONE
 queen DONE
@@ -21,8 +21,8 @@ promotion
 enpassant
 
 
-check (forced to move king or block attack)
-	loop through opponent's pieces to scan for check
+check (forced to move king or block attack) DONE
+	loop through opponent's pieces to scan for check DONE
 double check (forced to move king)
 pin
 castling (going through check!)
