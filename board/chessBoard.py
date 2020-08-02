@@ -135,7 +135,7 @@ class Board:
 
 		#print(king_location)
 
-
+		#list of all moves (not accounting for checks) that the clicked piece can move to
 		potential_moves = self.return_list_of_legal_moves_except_check(clicked_square)
 		
 		
@@ -147,29 +147,41 @@ class Board:
 
 		#you can move piece to put your king in check
 		#once in check, cant move any piece
-		pending_moves = potential_moves
-		return(pending_moves)
-
-
+		pending_moves = copy.deepcopy(potential_moves)
+		#return(pending_moves)
+		
+		
+		#test_state = copy.deepcopy(self)
+		#test_board = test_state.gameTiles
 		#BELOW HERE IS ADDING CHECKS FUNCTION!!!!
 		for potential_move in potential_moves:
-			test_state = copy.deepcopy(self)
-			test_board = test_state.gameTiles
-			
-			
 
-			test_board[potential_move].pieceOnTile = test_board[clicked_square].pieceOnTile
-			test_board[clicked_square].pieceOnTile = NullPiece
+			#test_board[potential_move].pieceOnTile = test_board[clicked_square].pieceOnTile
+			#test_board[clicked_square].pieceOnTile = NullPiece()
+			removed_piece = self.gameTiles[potential_move].pieceOnTile
+			
+			self.gameTiles[potential_move].pieceOnTile = self.gameTiles[clicked_square].pieceOnTile
+			self.gameTiles[clicked_square].pieceOnTile = NullPiece()
+
+			print(removed_piece.name, self.gameTiles[potential_move].pieceOnTile.name)
+
+			self.printBoard()
 			print('pending moves: ', pending_moves)
-			test_state.printBoard()
-			print('Current test board state: ', 'testing move - ', test_board[potential_move].pieceOnTile.name, ' ', test_board[potential_move].tileCoordinate)
+			print('Current test board state: ', 'testing move - ', self.gameTiles[potential_move].pieceOnTile.name, ' ', self.gameTiles[potential_move].tileCoordinate)
 			#FIRST YOU HAVE TO IMAGINE THE PIECE HAS MOVED!, ALSO THERES A BUG, THE MOVES DO NOT COME OUT CORRECTLY EVEN WITHOUT MOVING..
-			for tile in test_board.values():
+			for tile in self.gameTiles.values():
 				if tile.pieceOnTile.alliance is not None and tile.pieceOnTile.alliance != whos_turn:
 					print(tile.tileCoordinate, tile.pieceOnTile.name, self.return_list_of_legal_moves_except_check(tile.tileCoordinate))
 					if king_location in self.return_list_of_legal_moves_except_check(tile.tileCoordinate):
 						if pending_moves is not None:
-							pending_moves = pending_moves.remove(potential_move)
+							print('removing ', potential_move, ' from pending moves: ', pending_moves )
+							pending_moves.remove(potential_move)
+							print('after removing?....', pending_moves)
+
+			self.gameTiles[clicked_square].pieceOnTile = self.gameTiles[potential_move].pieceOnTile
+			self.gameTiles[potential_move].pieceOnTile = removed_piece
+			
+
 						
 
 		print(pending_moves)
@@ -181,3 +193,37 @@ class Board:
 				#if legal move puts king in check
 					# remove from legal moves
 					#break		
+
+
+
+
+'''
+
+		#you can move piece to put your king in check
+		#once in check, cant move any piece
+		pending_moves = copy.deepcopy(potential_moves)
+		#return(pending_moves)
+		test_state = copy.deepcopy(self)
+		test_board = test_state.gameTiles
+		#BELOW HERE IS ADDING CHECKS FUNCTION!!!!
+		for potential_move in potential_moves:
+			#test_state = copy.deepcopy(self)
+			print(dir(test_state))
+			test_board = self.gameTiles
+			#test_board = copy.deepcopy(self.gameTiles)
+			
+			#return(pending_moves)
+
+			test_board[potential_move].pieceOnTile = test_board[clicked_square].pieceOnTile
+			test_board[clicked_square].pieceOnTile = NullPiece()
+			print('pending moves: ', pending_moves)
+			#test_state.printBoard()
+			print('Current test board state: ', 'testing move - ', test_board[potential_move].pieceOnTile.name, ' ', test_board[potential_move].tileCoordinate)
+			#FIRST YOU HAVE TO IMAGINE THE PIECE HAS MOVED!, ALSO THERES A BUG, THE MOVES DO NOT COME OUT CORRECTLY EVEN WITHOUT MOVING..
+			for tile in test_board.values():
+				if tile.pieceOnTile.alliance is not None and tile.pieceOnTile.alliance != whos_turn:
+					print(tile.tileCoordinate, tile.pieceOnTile.name, test_state.return_list_of_legal_moves_except_check(tile.tileCoordinate))
+					if king_location in test_state.return_list_of_legal_moves_except_check(tile.tileCoordinate):
+						if pending_moves is not None:
+							pending_moves = pending_moves.remove(potential_move)
+						'''

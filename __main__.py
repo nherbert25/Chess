@@ -133,7 +133,7 @@ while not crashed:
 			elif currently_selected_square is not None:
 				if legal_moves is not None and clicked_square in legal_moves:
 					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
-					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece
+					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece()
 					allPieces = mv.rebuild_sprites(chessBoard.gameTiles, display_width, display_height)
 
 					legal_moves = None
