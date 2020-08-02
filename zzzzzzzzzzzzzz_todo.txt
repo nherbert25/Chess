@@ -35,7 +35,7 @@ end game condition
 	if king in check and no legal moves, game over
 
 
-make red dots smaller because they're annoying tf out of me
+make red dots smaller because they're annoying tf out of me DONE
 
 
 keep track of moves, for export.
