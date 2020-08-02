@@ -17,19 +17,22 @@ king DONE
 pawn DONE
 
 
-promotion
-enpassant
-
 
 check (forced to move king or block attack) DONE
 	loop through opponent's pieces to scan for check DONE
-double check (forced to move king)
-pin
+double check (forced to move king) DONE
+pin DONE
+
+
+
+
+promotion
+enpassant
 castling (going through check!)
 
 
 end game condition
-if king in check and no legal moves, game over
+	if king in check and no legal moves, game over
 
 
 make red dots smaller because they're annoying tf out of me
@@ -42,6 +45,8 @@ https://www.google.com/search?q=python+stockfish+module&oq=python+stockfish+modu
 
 --------------------
 
+
+unit testing
 
 add dependancy file
 SVG for sprites

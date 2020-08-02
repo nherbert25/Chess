@@ -119,10 +119,10 @@ while not crashed:
 				#display legal moves
 				if legal_moves is not None:
 					img = pygame.image.load("./ChessArt/red_dot.png")
-					img = pygame.transform.scale(img, (int(display_width/8),int(display_height/8)))
+					img = pygame.transform.scale(img, (int(display_width/30),int(display_height/30)))
 					for legal_move in legal_moves:
 						#print([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
-						allPieces.append([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
+						allPieces.append([img, [chessBoard.gameTiles[legal_move].xpos+display_width/16-img.get_width()//2, chessBoard.gameTiles[legal_move].ypos+display_height/16-img.get_width()//2]])
 				currently_selected_square = clicked_square
 
 
