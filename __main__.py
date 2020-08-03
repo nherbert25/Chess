@@ -113,7 +113,6 @@ while not crashed:
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
 
 				#calculate legal moves
-				#legal_moves = mv.return_list_of_legal_moves(chessBoard.gameTiles[clicked_square], chessBoard.gameTiles)
 				legal_moves = chessBoard.return_list_of_legal_moves(clicked_square)
 
 				#display legal moves
@@ -132,6 +131,10 @@ while not crashed:
 			#if a piece is already select and you select a legal move, move the piece and change turns
 			elif currently_selected_square is not None:
 				if legal_moves is not None and clicked_square in legal_moves:
+
+					
+					if (clicked_square <= 7 or clicked_square >= 56) and chessBoard.gameTiles[currently_selected_square].pieceOnTile.canPromote == True:
+						chessBoard.gameTiles[currently_selected_square].pieceOnTile = chessBoard.promote(chessBoard.gameTiles[currently_selected_square])
 					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
 					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece()
 					allPieces = mv.rebuild_sprites(chessBoard.gameTiles, display_width, display_height)

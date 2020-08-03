@@ -6,7 +6,7 @@ from pieces.bishop import Bishop
 from pieces import king
 from pieces import knight
 from pieces import rook
-from pieces import queen
+from pieces.queen import Queen
 from pieces import pawn
 
 class Board:
@@ -23,7 +23,7 @@ class Board:
 		self.gameTiles[0] = Tile(0, 'white', rook.Rook("Black", 0), False, False)
 		self.gameTiles[1] = Tile(1, 'black', knight.Knight("Black", 1), False, False)
 		self.gameTiles[2] = Tile(2, 'white', Bishop("Black", 2), False, False)
-		self.gameTiles[3] = Tile(3, 'black', queen.Queen("Black", 3), False, False)
+		self.gameTiles[3] = Tile(3, 'black', Queen("Black", 3), False, False)
 		self.gameTiles[4] = Tile(4, 'white', king.King("Black", 4), False, False)
 		self.gameTiles[5] = Tile(5, 'black', Bishop("Black", 5), False, False)
 		self.gameTiles[6] = Tile(6, 'white', knight.Knight("Black", 6), False, False)
@@ -60,7 +60,7 @@ class Board:
 		self.gameTiles[56] = Tile(56, 'black', rook.Rook("White", 56), False, False)
 		self.gameTiles[57] = Tile(57, 'white', knight.Knight("White", 57), False, False)
 		self.gameTiles[58] = Tile(58, 'black', Bishop("White", 58), False, False)
-		self.gameTiles[59] = Tile(59, 'white', queen.Queen("White", 59), False, False)
+		self.gameTiles[59] = Tile(59, 'white', Queen("White", 59), False, False)
 		self.gameTiles[60] = Tile(60, 'black', king.King("White", 60), False, False)
 		self.gameTiles[61] = Tile(61, 'white', Bishop("White", 61), False, False)
 		self.gameTiles[62] = Tile(62, 'black', knight.Knight("White", 62), False, False)
@@ -190,11 +190,13 @@ class Board:
 		print('-----------------------------------------------------------------------')
 		return(pending_moves)
 		
-			#for piece on board where alliance opposite
-				#find legal moves
-				#if legal move puts king in check
-					# remove from legal moves
-					#break		
+
+	#chessBoard.gameTiles[currently_selected_square]
+	def promote(self, promoting_pieces_square, player_chosen_piece = None):
+		#ask the player what piece they would like to promote to
+		#return a new instantiation of that piece type
+		return(Queen(promoting_pieces_square.pieceOnTile.alliance, promoting_pieces_square.pieceOnTile.position))
+
 
 
 

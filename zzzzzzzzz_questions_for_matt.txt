@@ -113,3 +113,10 @@ don't overindex on preformance
 function overrides
 pure/virtual functions
 abstract functions
+
+
+10.
+If I want to add a variable to each tile, 'isSquareSelected = True/False' and then loop through all of them to check 'if square is selected, add red box'. This code is a lot
+cleaner to me rather than explicitely setting and removing the red square when a piece is clicked. However, I think it would add something like 64 checks per cycle. Which 
+sounds like basically nothing but.... I guess my question is, I have no frame of reference for how expensive anything is - so is looping through my list an extra 64 times,
+does that matter at all? Would you consider the implications or am I over thinking it?

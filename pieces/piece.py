@@ -6,6 +6,7 @@ class Piece:
 	position = None
 	sprite = None
 	name = None
+	canPromote = False
 
 	def __init__(self, alliance):
 		self.sprite = "./ChessArt/"+alliance[0].upper()+self.toString().upper()+".png"

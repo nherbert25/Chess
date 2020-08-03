@@ -7,6 +7,7 @@ class Pawn(Piece):
 	name = 'pawn'
 	moved = False
 	original_square = None
+	canPromote = True
 	
 	def __init__(self, alliance, position):
 		Piece.__init__(self, alliance)
