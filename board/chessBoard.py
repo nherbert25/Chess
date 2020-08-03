@@ -152,18 +152,13 @@ class Board:
 		#if king collides with a piece which has that legal move, then king is in check
 
 
-		#you can move piece to put your king in check
-		#once in check, cant move any piece
-		pending_moves = copy.deepcopy(potential_moves)
-		#return(pending_moves)
-		
-		
 
-		#BELOW HERE IS ADDING CHECKS FUNCTION!!!!
+		pending_moves = copy.deepcopy(potential_moves)
+
 		for potential_move in potential_moves:
 
+			#For potential move, first move your piece to the new square
 			removed_piece = self.gameTiles[potential_move].pieceOnTile
-
 			self.gameTiles[potential_move].pieceOnTile = self.gameTiles[clicked_square].pieceOnTile
 			self.gameTiles[clicked_square].pieceOnTile = NullPiece()
 			for tile in self.gameTiles.values():
@@ -171,12 +166,14 @@ class Board:
 					king_location = tile.tileCoordinate
 					break
 
+			#testing
 			#print(removed_piece.name, self.gameTiles[potential_move].pieceOnTile.name)
 			#self.printBoard()
 			#print('pending moves: ', pending_moves)
 			#print('Current test board state: ', 'testing move - ', self.gameTiles[potential_move].pieceOnTile.name, ' ', self.gameTiles[potential_move].tileCoordinate)
 
-			#FIRST YOU HAVE TO IMAGINE THE PIECE HAS MOVED!
+
+			#After your piece has moved, scan opponent's pieces to see if your king is in check. If so, move is illegal and remove from potential_moves
 			for tile in self.gameTiles.values():
 				if tile.pieceOnTile.alliance is not None and tile.pieceOnTile.alliance != whos_turn:
 					#print(tile.tileCoordinate, tile.pieceOnTile.name, self.return_list_of_legal_moves_except_check(tile.tileCoordinate))
@@ -185,11 +182,12 @@ class Board:
 							pending_moves.remove(potential_move)
 							break
 
+			#return to original board state
 			self.gameTiles[clicked_square].pieceOnTile = self.gameTiles[potential_move].pieceOnTile
 			self.gameTiles[potential_move].pieceOnTile = removed_piece
-			
 
-						
+
+
 
 		#print(pending_moves)
 		#print('-----------------------------------------------------------------------')
