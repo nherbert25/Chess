@@ -58,3 +58,12 @@ class King(Piece):
 			potential_legal_moves[7].append(test_position)
 
 		return(potential_legal_moves)
+
+	def castle(self, Board):
+		#if king hasn't moved
+			#if rooks haven't moved
+				#if no pieces in between king and rook
+					#if not in check, moving through check, ending in check
+						#add move to list
+						#somehow reconsile logic that ALSO moves the rook
+		pass

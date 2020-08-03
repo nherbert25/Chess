@@ -1,17 +1,15 @@
 import pdb
 import sys
 import pygame
-from board.chessBoard import Board
 import board.move as mv
+from board.chessBoard import Board
 from pieces.nullPiece import NullPiece
-
-
-whos_turn = 'White'
 
 pygame.init()
 
 display_width = 800
 display_height = 800
+whos_turn = 'White'
 currently_selected_square = None
 
 '''
@@ -32,6 +30,18 @@ clock = pygame.time.Clock()
 crashed = False
 
 
+#allows for text to overlay the screen
+black = (0,0,0)
+def text_objects(text, font):
+	textSurface = font.render(text, True, black)
+	return textSurface, textSurface.get_rect()
+
+def message_display(text):
+	largeText = pygame.font.Font('freesansbold.ttf',115)
+	TextSurf, TextRect = text_objects(text, largeText)
+	TextRect.center = ((display_width/2),(display_height/2))
+	gameDisplay.blit(TextSurf, TextRect)
+	pygame.display.update()
 
 ########################################################################
 ########################################################################
@@ -78,6 +88,7 @@ def drawChessPieces():
 
 ########################################################################
 ########################################################################
+#main loop
 drawChessPieces()
 
 while not crashed:
@@ -133,9 +144,10 @@ while not crashed:
 				if legal_moves is not None and clicked_square in legal_moves:
 
 					
-					if (clicked_square <= 7 or clicked_square >= 56) and chessBoard.gameTiles[currently_selected_square].pieceOnTile.canPromote == True:
+					if (clicked_square <= 7 or clicked_square >= 56) and chessBoard.gameTiles[currently_selected_square].pieceOnTile.can_promote == True:
 						chessBoard.gameTiles[currently_selected_square].pieceOnTile = chessBoard.promote(chessBoard.gameTiles[currently_selected_square])
 					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
+					chessBoard.gameTiles[clicked_square].pieceOnTile.hasMoved = True
 					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece()
 					allPieces = mv.rebuild_sprites(chessBoard.gameTiles, display_width, display_height)
 
@@ -160,7 +172,9 @@ while not crashed:
 	for img in allPieces:
 		gameDisplay.blit(img[0], img[1])
 
-
+	if chessBoard.checkmate:
+		pass
+		#message_display('Checkmate!')
 
 	pygame.display.update()
 	clock.tick(60)

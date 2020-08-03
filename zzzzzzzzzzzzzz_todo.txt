@@ -23,19 +23,32 @@ check (forced to move king or block attack) DONE
 double check (forced to move king) DONE
 pin DONE
 
+make red dots smaller because they're annoying tf out of me DONE
 
+--------------------
 
+SVG for sprites
 
-promotion
+promotion (currently autos to queen)
+	Add ability to choose which piece you promote to!
+
 enpassant
 castling (going through check!)
 
+hash table for moves, run this immediately after the last move was played (this will fix checkmate not displaying immediately)
+change finding moving logic to run immediately after the last move was made and put all potential moves into a dictionary
 
-end game condition
+end game condition DONE - BUG, when selecting a piece, if THAT PIECE has no legal moves, it thinks it's checkmate
 	if king in check and no legal moves, game over
+	prevent ability to select other squares
+	red square around checkmated king
+	red square around checkmating pieces
+	overlay 
+	  'Checkmate!'
+	'whos_turn wins!'
 
+--------------------
 
-make red dots smaller because they're annoying tf out of me DONE
 
 
 keep track of moves, for export.
@@ -49,4 +62,3 @@ https://www.google.com/search?q=python+stockfish+module&oq=python+stockfish+modu
 unit testing
 
 add dependancy file
-SVG for sprites
