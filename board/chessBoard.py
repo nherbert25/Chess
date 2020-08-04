@@ -141,6 +141,8 @@ class Board:
 	#now check if the king would be in check
 	def return_list_of_legal_moves(self, clicked_square):
 		whos_turn = self.gameTiles[clicked_square].pieceOnTile.alliance
+		castle_short = False
+		castle_long = False
 
 		#list of all moves (not accounting for checks) that the clicked piece can move to
 		potential_moves = self.return_list_of_legal_moves_except_check(clicked_square)
@@ -185,6 +187,62 @@ class Board:
 			#return to original board state
 			self.gameTiles[clicked_square].pieceOnTile = self.gameTiles[potential_move].pieceOnTile
 			self.gameTiles[potential_move].pieceOnTile = removed_piece
+		
+
+
+		#test castling
+		if self.gameTiles[clicked_square].pieceOnTile.name == 'king':
+			king_location = self.gameTiles[clicked_square].tileCoordinate
+
+			#if king has not moved, rook has not moved, and spaces in between are empty
+			if self.gameTiles[clicked_square].pieceOnTile.has_moved == False and self.gameTiles[king_location+3].pieceOnTile.has_moved == False and self.gameTiles[king_location+1].pieceOnTile.name == 'empty' and self.gameTiles[king_location+2].pieceOnTile.name == 'empty':
+				
+				king_in_check = False
+				
+				#see if king is in check
+				for tile in self.gameTiles.values():
+					if tile.pieceOnTile.alliance is not None and tile.pieceOnTile.alliance != whos_turn:
+						if king_location in self.return_list_of_legal_moves_except_check(tile.tileCoordinate):
+							king_in_check = True
+							break
+				
+				#if king not in check, test short and long castle
+				if king_in_check != True:
+							#test castling short
+							#if self.gameTiles[king_location+3].pieceOnTile.has_moved == False:
+								#loop through king moving to next two squares
+
+					NEW_KING = copy.deepcopy(king_location)
+					potential_moves = [NEW_KING+1, NEW_KING+2]
+					print('potentail: , ', potential_moves)
+					for potential_move in potential_moves:
+						#For potential move, first move your piece to the new square
+						removed_piece = self.gameTiles[potential_move].pieceOnTile
+						self.gameTiles[potential_move].pieceOnTile = self.gameTiles[clicked_square].pieceOnTile
+						self.gameTiles[clicked_square].pieceOnTile = NullPiece()
+						#find king JUST SET TO POTENTIAL MOVE
+						for tile in self.gameTiles.values():
+							if tile.pieceOnTile.alliance == whos_turn and tile.pieceOnTile.name == 'king':
+								king_location = tile.tileCoordinate
+								break
+						
+
+						#After your piece has moved, scan opponent's pieces to see if your king is in check. If so, castling is false
+						castle_short = True
+						for tile in self.gameTiles.values():
+							if tile.pieceOnTile.alliance is not None and tile.pieceOnTile.alliance != whos_turn:
+								#print(tile.tileCoordinate, tile.pieceOnTile.name, self.return_list_of_legal_moves_except_check(tile.tileCoordinate))
+								if king_location in self.return_list_of_legal_moves_except_check(tile.tileCoordinate):
+									castle_short = False
+									break
+						#return king to starting position
+						self.gameTiles[clicked_square].pieceOnTile = self.gameTiles[potential_move].pieceOnTile
+						#self.gameTiles[potential_move].pieceOnTile = removed_piece
+						self.gameTiles[potential_move].pieceOnTile = NullPiece()
+
+
+		if castle_short:
+			print('Short castles!')
 
 
 

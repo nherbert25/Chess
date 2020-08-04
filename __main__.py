@@ -147,7 +147,7 @@ while not crashed:
 					if (clicked_square <= 7 or clicked_square >= 56) and chessBoard.gameTiles[currently_selected_square].pieceOnTile.can_promote == True:
 						chessBoard.gameTiles[currently_selected_square].pieceOnTile = chessBoard.promote(chessBoard.gameTiles[currently_selected_square])
 					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
-					chessBoard.gameTiles[clicked_square].pieceOnTile.hasMoved = True
+					chessBoard.gameTiles[clicked_square].pieceOnTile.has_moved = True
 					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece()
 					allPieces = mv.rebuild_sprites(chessBoard.gameTiles, display_width, display_height)
 
