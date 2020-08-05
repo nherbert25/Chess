@@ -234,7 +234,8 @@ class Board:
 								#print(tile.tileCoordinate, tile.pieceOnTile.name, self.return_list_of_legal_moves_except_check(tile.tileCoordinate))
 								if king_location in self.return_list_of_legal_moves_except_check(tile.tileCoordinate):
 									castle_short = False
-									break
+						if castle_short:
+							pending_moves.append(king_location)
 						#return king to starting position
 						self.gameTiles[clicked_square].pieceOnTile = self.gameTiles[potential_move].pieceOnTile
 						#self.gameTiles[potential_move].pieceOnTile = removed_piece

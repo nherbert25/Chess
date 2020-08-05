@@ -143,14 +143,23 @@ while not crashed:
 			elif currently_selected_square is not None:
 				if legal_moves is not None and clicked_square in legal_moves:
 
-					
+					#check promotion
 					if (clicked_square <= 7 or clicked_square >= 56) and chessBoard.gameTiles[currently_selected_square].pieceOnTile.can_promote == True:
 						chessBoard.gameTiles[currently_selected_square].pieceOnTile = chessBoard.promote(chessBoard.gameTiles[currently_selected_square])
+					
+					#if castling, move the rook
+					if chessBoard.gameTiles[currently_selected_square].pieceOnTile.name  == 'king' and clicked_square - currently_selected_square == 2:
+						chessBoard.gameTiles[currently_selected_square+1].pieceOnTile = chessBoard.gameTiles[currently_selected_square+3].pieceOnTile
+						chessBoard.gameTiles[currently_selected_square+1].pieceOnTile.has_moved = True
+						chessBoard.gameTiles[currently_selected_square+3].pieceOnTile = NullPiece()
+
+					#move piece
 					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
 					chessBoard.gameTiles[clicked_square].pieceOnTile.has_moved = True
 					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece()
 					allPieces = mv.rebuild_sprites(chessBoard.gameTiles, display_width, display_height)
 
+					#reset global variables
 					legal_moves = None
 					currently_selected_square = None
 					if whos_turn == 'White':
