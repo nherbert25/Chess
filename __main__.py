@@ -152,6 +152,11 @@ while not crashed:
 						chessBoard.gameTiles[currently_selected_square+1].pieceOnTile = chessBoard.gameTiles[currently_selected_square+3].pieceOnTile
 						chessBoard.gameTiles[currently_selected_square+1].pieceOnTile.has_moved = True
 						chessBoard.gameTiles[currently_selected_square+3].pieceOnTile = NullPiece()
+					
+					if chessBoard.gameTiles[currently_selected_square].pieceOnTile.name  == 'king' and clicked_square - currently_selected_square == -2:
+						chessBoard.gameTiles[currently_selected_square-1].pieceOnTile = chessBoard.gameTiles[currently_selected_square-4].pieceOnTile
+						chessBoard.gameTiles[currently_selected_square-1].pieceOnTile.has_moved = True
+						chessBoard.gameTiles[currently_selected_square-4].pieceOnTile = NullPiece()
 
 					#move piece
 					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
@@ -166,7 +171,6 @@ while not crashed:
 						whos_turn = 'Black'
 					else:
 						whos_turn = 'White'
-
 
 
 			else:
