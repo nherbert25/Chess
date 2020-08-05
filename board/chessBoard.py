@@ -212,15 +212,12 @@ class Board:
 					castle_short = True
 					moving_through_check = [king_location+1, king_location+2]
 
-
 					#For potential move, first move your piece to the new square
-
 					for potential_move in moving_through_check:
 						removed_piece = self.gameTiles[potential_move].pieceOnTile
 						self.gameTiles[potential_move].pieceOnTile = self.gameTiles[clicked_square].pieceOnTile
 						self.gameTiles[clicked_square].pieceOnTile = NullPiece()
 						king_location = potential_move
-
 
 						#After your piece has moved, scan opponent's pieces to see if your king is in check. If so, castling is illegal
 						for tile in self.gameTiles.values():
@@ -264,7 +261,6 @@ class Board:
 						self.gameTiles[clicked_square].pieceOnTile = NullPiece()
 						king_location = potential_move
 
-
 						#After your piece has moved, scan opponent's pieces to see if your king is in check. If so, castling is illegal
 						for tile in self.gameTiles.values():
 							if tile.pieceOnTile.alliance is not None and tile.pieceOnTile.alliance != whos_turn:
@@ -279,16 +275,6 @@ class Board:
 					
 					if castle_long:
 						pending_moves.append(king_location-2)
-
-
-
-		if castle_short:
-			print('Short castles!')
-
-		if castle_long:
-			print('Long castles!')
-
-
 
 
 		#print(pending_moves)

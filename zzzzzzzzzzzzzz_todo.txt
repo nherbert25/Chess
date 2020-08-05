@@ -25,15 +25,19 @@ pin DONE
 
 make red dots smaller because they're annoying tf out of me DONE
 
+castling (going through check!) DONE
+
 --------------------
 
 SVG for sprites
+https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
+
 
 promotion (currently autos to queen)
 	Add ability to choose which piece you promote to!
 
 enpassant
-castling (going through check!)
+
 
 hash table for moves, run this immediately after the last move was played (this will fix checkmate not displaying immediately)
 change finding moving logic to run immediately after the last move was made and put all potential moves into a dictionary
