@@ -13,6 +13,7 @@ class Board:
 
 	checkmate = False
 	gameTiles = {}
+	legal_moves = {}
 	
 	def __init__(self):
 		pass
@@ -137,8 +138,8 @@ class Board:
 			return(legal_moves)
 
 
-
-	#now check if the king would be in check
+	#main method for determining a list of legal moves
+	#for the chosen piece, returns a list of legal moves
 	def return_list_of_legal_moves(self, clicked_square):
 		whos_turn = self.gameTiles[clicked_square].pieceOnTile.alliance
 		castle_short = False
@@ -152,8 +153,6 @@ class Board:
 		#write a function for the king which is the functionality of a queen + knight
 		#check if the piece moves to the new square calculate all king moves,
 		#if king collides with a piece which has that legal move, then king is in check
-
-
 
 		pending_moves = copy.deepcopy(potential_moves)
 
@@ -279,9 +278,27 @@ class Board:
 
 		#print(pending_moves)
 		#print('-----------------------------------------------------------------------')
-		if len(pending_moves) == 0:
-			self.checkmate = True
+		#if len(pending_moves) == 0:
+		#	self.checkmate = True
 		return(pending_moves)
+
+
+
+	def hash_legal_moves(self, whos_turn):
+		to_hash = {}
+		for square_number, tile in self.gameTiles.items():
+			if whos_turn == tile.pieceOnTile.alliance:
+				#to_hash[square_number] = self.return_list_of_legal_moves(square_number)
+				
+				#if piece has legal moves, append to dictionary
+				testing_piece = self.return_list_of_legal_moves(square_number)
+				if testing_piece:
+					to_hash[square_number] = testing_piece
+		return(to_hash)
+
+
+
+
 
 
 	#chessBoard.gameTiles[currently_selected_square]

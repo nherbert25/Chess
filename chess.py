@@ -42,6 +42,20 @@ def message_display(text):
 	gameDisplay.blit(TextSurf, TextRect)
 	pygame.display.update()
 
+def checkmate():
+	chessBoard.checkmate = True
+	message_display('Checkmate!')
+
+	while chessBoard.checkmate:
+		for event in pygame.event.get():
+
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				quit()
+				
+		pygame.display.update()
+		clock.tick(15)  
+
 ########################################################################
 ########################################################################
 
@@ -89,7 +103,8 @@ def drawChessPieces():
 ########################################################################
 #main loop
 drawChessPieces()
-
+chessBoard.legal_moves = chessBoard.hash_legal_moves(whos_turn)
+#pdb.set_trace()
 while not crashed:
 
 	#evaluates what happens during each event (x # of frames), (where mouse is, if event is quit, etc.)
@@ -105,8 +120,6 @@ while not crashed:
 
 			
 			#if square is already selected, unselect
-			#if chessBoard.gameTiles[clicked_square].piece_selected == True:
-				#chessBoard.gameTiles[clicked_square].piece_selected = False
 			if currently_selected_square == clicked_square:
 				allPieces = [x for x in allPieces if len(x) != 2]
 				currently_selected_square = None
@@ -114,7 +127,6 @@ while not crashed:
 
 			#if square selected has a piece of your alliance on it, select the square and display moves
 			elif chessBoard.gameTiles[clicked_square].pieceOnTile.alliance == whos_turn:
-				#chessBoard.gameTiles[clicked_square].piece_selected == True
 				allPieces = [x for x in allPieces if len(x) != 2]
 
 				#highlight selected square
@@ -123,14 +135,14 @@ while not crashed:
 				allPieces.append([img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos]])
 
 				#calculate legal moves
-				legal_moves = chessBoard.return_list_of_legal_moves(clicked_square)
+				#legal_moves = chessBoard.return_list_of_legal_moves(clicked_square)
+				legal_moves = chessBoard.legal_moves.get(clicked_square)
 
 				#display legal moves
 				if legal_moves is not None:
 					img = pygame.image.load("./ChessArt/red_dot.png")
 					img = pygame.transform.scale(img, (int(display_width/30),int(display_height/30)))
 					for legal_move in legal_moves:
-						#print([img, [chessBoard.gameTiles[legal_move].xpos, chessBoard.gameTiles[legal_move].ypos]])
 						allPieces.append([img, [chessBoard.gameTiles[legal_move].xpos+display_width/16-img.get_width()//2, chessBoard.gameTiles[legal_move].ypos+display_height/16-img.get_width()//2]])
 				currently_selected_square = clicked_square
 
@@ -176,19 +188,24 @@ while not crashed:
 				pass
 
 
-	#gameDisplay.fill([255,255,255])
+
+
+	#end of user input logic
+
 	for img in allTiles:
 		pygame.draw.rect(gameDisplay, img[0], img[1])
 
-#64 int list with piece:   [img, [xpos, ypos], chessBoard.gameTiles[number].pieceOnTile]
+	#64 int list with piece:   [img, [xpos, ypos], chessBoard.gameTiles[number].pieceOnTile]
 	for img in allPieces:
 		gameDisplay.blit(img[0], img[1])
 
-	if chessBoard.checkmate:
-		pass
-		#message_display('Checkmate!')
-
 	pygame.display.update()
+	chessBoard.legal_moves = chessBoard.hash_legal_moves(whos_turn)
+
+	#if checkmate, end game
+	if not chessBoard.legal_moves:
+		checkmate()
+
 	clock.tick(60)
 
 pygame.quit()
