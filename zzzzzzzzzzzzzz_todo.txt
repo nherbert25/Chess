@@ -29,20 +29,15 @@ castling (going through check!) DONE
 
 --------------------
 
-SVG for sprites
+SVG for sprites   SPRITES ADDED BUT CAUSED HUGE LAG, ABANDONING
 https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
 
 
-promotion (currently autos to queen)
-	Add ability to choose which piece you promote to!
 
-enpassant
-
-
-hash table for moves, run this immediately after the last move was played (this will fix checkmate not displaying immediately)
+hash table for moves, run this immediately after the last move was played (this will fix checkmate not displaying immediately)  DONE
 change finding moving logic to run immediately after the last move was made and put all potential moves into a dictionary
 
-end game condition DONE - BUG, when selecting a piece, if THAT PIECE has no legal moves, it thinks it's checkmate
+end game condition DONE - BUG, when selecting a piece, if THAT PIECE has no legal moves, it thinks it's checkmate   DONE
 	if king in check and no legal moves, game over
 	prevent ability to select other squares
 	red square around checkmated king
@@ -51,14 +46,22 @@ end game condition DONE - BUG, when selecting a piece, if THAT PIECE has no lega
 	  'Checkmate!'
 	'whos_turn wins!'
 
---------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+promotion (currently autos to queen)
+	Add ability to choose which piece you promote to!
 
-keep track of moves, for export.
+enpassant
+
+
+keep track of moves, for export
+
+
 
 integrate with stockfish
 https://www.google.com/search?q=python+stockfish+module&oq=python+stockfish+module&aqs=chrome..69i57j33.3743j0j7&sourceid=chrome&ie=UTF-8
+
 
 --------------------
 
