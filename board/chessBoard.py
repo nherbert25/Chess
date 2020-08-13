@@ -14,6 +14,7 @@ class Board:
 	checkmate = False
 	gameTiles = {}
 	legal_moves = {}
+	game_position = []
 	
 	def __init__(self):
 		pass
@@ -167,13 +168,6 @@ class Board:
 					king_location = tile.tileCoordinate
 					break
 
-			#testing
-			#print(removed_piece.name, self.gameTiles[potential_move].pieceOnTile.name)
-			#self.printBoard()
-			#print('pending moves: ', pending_moves)
-			#print('Current test board state: ', 'testing move - ', self.gameTiles[potential_move].pieceOnTile.name, ' ', self.gameTiles[potential_move].tileCoordinate)
-
-
 			#After your piece has moved, scan opponent's pieces to see if your king is in check. If so, move is illegal and remove from potential_moves
 			for tile in self.gameTiles.values():
 				if tile.pieceOnTile.alliance is not None and tile.pieceOnTile.alliance != whos_turn:
@@ -246,10 +240,9 @@ class Board:
 							king_in_check = True
 							break
 
-				#if king not in check, test short and long castle
+				#if king not in check, test castling long
 				if king_in_check != True:
 
-					#test castling long
 					castle_long = True
 					moving_through_check = [king_location-1, king_location-2]
 
@@ -275,11 +268,6 @@ class Board:
 					if castle_long:
 						pending_moves.append(king_location-2)
 
-
-		#print(pending_moves)
-		#print('-----------------------------------------------------------------------')
-		#if len(pending_moves) == 0:
-		#	self.checkmate = True
 		return(pending_moves)
 
 
@@ -297,10 +285,6 @@ class Board:
 		return(to_hash)
 
 
-
-
-
-
 	#chessBoard.gameTiles[currently_selected_square]
 	def promote(self, promoting_pieces_square, player_chosen_piece = None):
 		#ask the player what piece they would like to promote to
@@ -308,3 +292,35 @@ class Board:
 		new_piece = Queen(promoting_pieces_square.pieceOnTile.alliance, promoting_pieces_square.pieceOnTile.position)
 		new_piece.has_moved = True
 		return(new_piece)
+
+
+	#stockfish wants start,end, and if promote the first letter of the piece
+	#a4a5
+	#b7a8q
+	def record_move(self, start_square, end_square, promote=None):
+		
+		move_table = {0:'a', 1:'b', 2:'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h'}
+		output = ''
+
+		for square in [start_square, end_square]:
+			myfile = (square % 8)
+			rank = 8
+			while square >= 8:
+				square -= 8
+				rank -= 1
+			output = output + move_table[myfile] + str(rank)
+		
+		self.game_position.append(output)
+		self.invert_recorded_move(output)
+
+	def invert_recorded_move(self, recorded_move):
+		
+		inv_move_table_rank = {8:0, 7:8, 6:16 ,5:24,4:32, 3:40, 2:48, 1:56}
+		inv_move_table_file = {'a':0, 'b':1, 'c':2 ,'d':3,'e':4, 'f':5, 'g':6, 'h':7}
+		
+		#if promotion
+		if len(recorded_move) == 5:
+			pass
+		
+		currently_selected_square = inv_move_table_file[recorded_move[0]] + inv_move_table_rank[int(recorded_move[1])]
+		clicked_square = inv_move_table_file[recorded_move[2]] + inv_move_table_rank[int(recorded_move[3])]

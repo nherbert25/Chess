@@ -176,6 +176,7 @@ while not crashed:
 					allPieces = mv.rebuild_sprites(chessBoard.gameTiles, display_width, display_height)
 
 					#reset global variables
+					chessBoard.record_move(currently_selected_square, clicked_square)
 					legal_moves = None
 					currently_selected_square = None
 					if whos_turn == 'White':
