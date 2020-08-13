@@ -311,7 +311,6 @@ class Board:
 			output = output + move_table[myfile] + str(rank)
 		
 		self.game_position.append(output)
-		self.invert_recorded_move(output)
 
 	def invert_recorded_move(self, recorded_move):
 		
@@ -324,3 +323,4 @@ class Board:
 		
 		currently_selected_square = inv_move_table_file[recorded_move[0]] + inv_move_table_rank[int(recorded_move[1])]
 		clicked_square = inv_move_table_file[recorded_move[2]] + inv_move_table_rank[int(recorded_move[3])]
+		return(currently_selected_square, clicked_square)
