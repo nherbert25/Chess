@@ -46,6 +46,11 @@ end game condition DONE - BUG, when selecting a piece, if THAT PIECE has no lega
 	  'Checkmate!'
 	'whos_turn wins!'
 
+
+integrate with stockfish - DONE
+https://www.google.com/search?q=python+stockfish+module&oq=python+stockfish+module&aqs=chrome..69i57j33.3743j0j7&sourceid=chrome&ie=UTF-8
+
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -58,9 +63,6 @@ enpassant
 keep track of moves, for export
 
 
-
-integrate with stockfish
-https://www.google.com/search?q=python+stockfish+module&oq=python+stockfish+module&aqs=chrome..69i57j33.3743j0j7&sourceid=chrome&ie=UTF-8
 
 
 --------------------

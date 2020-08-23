@@ -1,4 +1,3 @@
-import pdb
 import sys
 import pygame
 import board.move as mv
@@ -105,7 +104,7 @@ def drawChessPieces():
 #main loop
 drawChessPieces()
 chessBoard.legal_moves = chessBoard.hash_legal_moves(whos_turn)
-#pdb.set_trace()
+
 while not crashed:
 
 	#evaluates what happens during each event (x # of frames), (where mouse is, if event is quit, etc.)
@@ -156,7 +155,6 @@ while not crashed:
 			elif currently_selected_square is not None:
 				if legal_moves is not None and clicked_square in legal_moves:
 
-
 					#move piece
 					allPieces, whos_turn = mv.move_piece(currently_selected_square, clicked_square, chessBoard, display_width, display_height, whos_turn)
 					
@@ -169,11 +167,9 @@ while not crashed:
 
 			else:
 				pass
-
-
-
-
 	#end of user input logic
+
+
 
 	#draw all tiles
 	for img in allTiles:
