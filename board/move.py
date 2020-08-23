@@ -1,4 +1,5 @@
 import pygame
+from pieces.nullPiece import NullPiece
 import pdb
 
 #takes in x,y of where you click, returns the square which you clicked as an integer 0-63
@@ -55,6 +56,41 @@ def rebuild_sprites(board, display_width, display_height):
             allPieces.append([img, [value.xpos, value.ypos], value.pieceOnTile])
 
     return(allPieces)
-        #if board[key]
-        #allPieces.append[clicked_square] = [img, [chessBoard.gameTiles[clicked_square].xpos, chessBoard.gameTiles[clicked_square].ypos], chessBoard.gameTiles[clicked_square].pieceOnTile]
 
+
+
+
+
+
+def move_piece(currently_selected_square, clicked_square, chessBoard, display_width, display_height, whos_turn):
+
+    #check promotion
+    if (clicked_square <= 7 or clicked_square >= 56) and chessBoard.gameTiles[currently_selected_square].pieceOnTile.can_promote == True:
+        chessBoard.gameTiles[currently_selected_square].pieceOnTile = chessBoard.promote(chessBoard.gameTiles[currently_selected_square])
+    
+    #if castling, move the rook
+    if chessBoard.gameTiles[currently_selected_square].pieceOnTile.name  == 'king' and clicked_square - currently_selected_square == 2:
+        chessBoard.gameTiles[currently_selected_square+1].pieceOnTile = chessBoard.gameTiles[currently_selected_square+3].pieceOnTile
+        chessBoard.gameTiles[currently_selected_square+1].pieceOnTile.has_moved = True
+        chessBoard.gameTiles[currently_selected_square+3].pieceOnTile = NullPiece()
+    
+    if chessBoard.gameTiles[currently_selected_square].pieceOnTile.name  == 'king' and clicked_square - currently_selected_square == -2:
+        chessBoard.gameTiles[currently_selected_square-1].pieceOnTile = chessBoard.gameTiles[currently_selected_square-4].pieceOnTile
+        chessBoard.gameTiles[currently_selected_square-1].pieceOnTile.has_moved = True
+        chessBoard.gameTiles[currently_selected_square-4].pieceOnTile = NullPiece()
+
+    #move piece
+    chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
+    chessBoard.gameTiles[clicked_square].pieceOnTile.has_moved = True
+    chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece()
+    allPieces = rebuild_sprites(chessBoard.gameTiles, display_width, display_height)
+
+    #reset global variables
+    chessBoard.record_move(currently_selected_square, clicked_square)
+    legal_moves = None
+    currently_selected_square = None
+    if whos_turn == 'White':
+        whos_turn = 'Black'
+    else:
+        whos_turn = 'White'
+    return(allPieces, whos_turn)

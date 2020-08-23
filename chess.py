@@ -156,70 +156,15 @@ while not crashed:
 			elif currently_selected_square is not None:
 				if legal_moves is not None and clicked_square in legal_moves:
 
-					#check promotion
-					if (clicked_square <= 7 or clicked_square >= 56) and chessBoard.gameTiles[currently_selected_square].pieceOnTile.can_promote == True:
-						chessBoard.gameTiles[currently_selected_square].pieceOnTile = chessBoard.promote(chessBoard.gameTiles[currently_selected_square])
-					
-					#if castling, move the rook
-					if chessBoard.gameTiles[currently_selected_square].pieceOnTile.name  == 'king' and clicked_square - currently_selected_square == 2:
-						chessBoard.gameTiles[currently_selected_square+1].pieceOnTile = chessBoard.gameTiles[currently_selected_square+3].pieceOnTile
-						chessBoard.gameTiles[currently_selected_square+1].pieceOnTile.has_moved = True
-						chessBoard.gameTiles[currently_selected_square+3].pieceOnTile = NullPiece()
-					
-					if chessBoard.gameTiles[currently_selected_square].pieceOnTile.name  == 'king' and clicked_square - currently_selected_square == -2:
-						chessBoard.gameTiles[currently_selected_square-1].pieceOnTile = chessBoard.gameTiles[currently_selected_square-4].pieceOnTile
-						chessBoard.gameTiles[currently_selected_square-1].pieceOnTile.has_moved = True
-						chessBoard.gameTiles[currently_selected_square-4].pieceOnTile = NullPiece()
 
 					#move piece
-					chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
-					chessBoard.gameTiles[clicked_square].pieceOnTile.has_moved = True
-					chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece()
-					allPieces = mv.rebuild_sprites(chessBoard.gameTiles, display_width, display_height)
-
-					#reset global variables
-					chessBoard.record_move(currently_selected_square, clicked_square)
-					legal_moves = None
-					currently_selected_square = None
-					if whos_turn == 'White':
-						whos_turn = 'Black'
-					else:
-						whos_turn = 'White'
-
-
+					allPieces, whos_turn = mv.move_piece(currently_selected_square, clicked_square, chessBoard, display_width, display_height, whos_turn)
+					
 					if stockfish.playing_computer == True:
-
 						stockfish.stockfish.set_position(chessBoard.game_position)
 						currently_selected_square, clicked_square = chessBoard.invert_recorded_move(stockfish.stockfish.get_best_move())
-						#check promotion
-						if (clicked_square <= 7 or clicked_square >= 56) and chessBoard.gameTiles[currently_selected_square].pieceOnTile.can_promote == True:
-							chessBoard.gameTiles[currently_selected_square].pieceOnTile = chessBoard.promote(chessBoard.gameTiles[currently_selected_square])
-						
-						#if castling, move the rook
-						if chessBoard.gameTiles[currently_selected_square].pieceOnTile.name  == 'king' and clicked_square - currently_selected_square == 2:
-							chessBoard.gameTiles[currently_selected_square+1].pieceOnTile = chessBoard.gameTiles[currently_selected_square+3].pieceOnTile
-							chessBoard.gameTiles[currently_selected_square+1].pieceOnTile.has_moved = True
-							chessBoard.gameTiles[currently_selected_square+3].pieceOnTile = NullPiece()
-						
-						if chessBoard.gameTiles[currently_selected_square].pieceOnTile.name  == 'king' and clicked_square - currently_selected_square == -2:
-							chessBoard.gameTiles[currently_selected_square-1].pieceOnTile = chessBoard.gameTiles[currently_selected_square-4].pieceOnTile
-							chessBoard.gameTiles[currently_selected_square-1].pieceOnTile.has_moved = True
-							chessBoard.gameTiles[currently_selected_square-4].pieceOnTile = NullPiece()
+						allPieces, whos_turn = mv.move_piece(currently_selected_square, clicked_square, chessBoard, display_width, display_height, whos_turn)
 
-						#move piece
-						chessBoard.gameTiles[clicked_square].pieceOnTile = chessBoard.gameTiles[currently_selected_square].pieceOnTile
-						chessBoard.gameTiles[clicked_square].pieceOnTile.has_moved = True
-						chessBoard.gameTiles[currently_selected_square].pieceOnTile = NullPiece()
-						allPieces = mv.rebuild_sprites(chessBoard.gameTiles, display_width, display_height)
-
-						#reset global variables
-						chessBoard.record_move(currently_selected_square, clicked_square)
-						legal_moves = None
-						currently_selected_square = None
-						if whos_turn == 'White':
-							whos_turn = 'Black'
-						else:
-							whos_turn = 'White'
 
 
 			else:
@@ -230,6 +175,7 @@ while not crashed:
 
 	#end of user input logic
 
+	#draw all tiles
 	for img in allTiles:
 		pygame.draw.rect(gameDisplay, img[0], img[1])
 
