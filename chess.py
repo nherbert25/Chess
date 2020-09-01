@@ -75,7 +75,6 @@ def squares(x, y, w, h, color):
 def drawChessPieces():
 	xpos = 0
 	ypos = 0
-	#color = 0
 	width = display_width/8
 	height = display_height/8
 	square_color = {'white': (143,155,175), 'black': ((66,0,0))}
