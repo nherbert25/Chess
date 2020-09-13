@@ -1,2 +1,2 @@
 # Chess
-Chess GUI + AI, pretty self explanitory, it's chess!
+Chess GUI + AI, pretty self explanatory, it's chess!
