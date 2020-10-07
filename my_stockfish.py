@@ -4,7 +4,7 @@ from stockfish import Stockfish
 
 stockfish = Stockfish('Q:/stockfish-11-win/Windows/stockfish_20011801_x64.exe')
 
-playing_computer = True
+playing_computer = False
 
 
 

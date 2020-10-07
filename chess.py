@@ -162,6 +162,8 @@ while not crashed:
 						currently_selected_square, clicked_square = chessBoard.invert_recorded_move(stockfish.stockfish.get_best_move())
 						allPieces, whos_turn = mv.move_piece(currently_selected_square, clicked_square, chessBoard, display_width, display_height, whos_turn)
 
+					currently_selected_square = None
+
 
 
 			else:
